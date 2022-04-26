@@ -1,0 +1,28 @@
+#footer{
+    background: transparent;
+}
+#footer-wrap{
+    color: #0d0d0d;
+}
+#footer-a{
+    color: #0d0d0d !important;
+}
+body {
+    cursor: url(../img/cursor/正常选择.cur), auto;
+}
+
+a {
+    cursor: url(../img/cursor/文本选择.cur), auto;
+}
+
+a:active {
+    cursor: url(../img/cursor/移动.cur), alias;
+}
+
+p {
+    cursor: url(../img/cursor/不可用.cur), auto;
+}
+
+span{
+    cursor: url(../img/cursor/链接选择.cur), auto;
+}
