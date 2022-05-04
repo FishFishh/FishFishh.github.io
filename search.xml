@@ -186,18 +186,16 @@
     
     
     <entry>
-      <title>HashMap</title>
-      <link href="/2021/11/03/code/CSDN-HashMap/"/>
-      <url>/2021/11/03/code/CSDN-HashMap/</url>
+      <title>集合の总结_(:з」∠)</title>
+      <link href="/2021/11/04/code/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/"/>
+      <url>/2021/11/04/code/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/</url>
       
-        <content type="html"><![CDATA[<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><ol><li><pre><code>Map中的数据是以键值对( key-value )的形式存储的。</code></pre></li><li><pre><code>key-value以Entry类型的对象实例存在。</code></pre></li><li><pre><code>可以通过key值快速地查找value。</code></pre></li><li><pre><code>一个映射不能包含重复的键。也就是说key的值必须为1，一个value可以对应多个key的值。</code></pre><h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1></li><li><pre><code>基于哈希表的Map接口的实现。是Map的实现类。</code></pre></li><li><pre><code>允许使用null值和null键。</code></pre></li><li><pre><code>key值不允许重复。</code></pre></li><li><pre><code>HashMap中的Entry对象是无序排列的。</code></pre></li></ol><h2 id="例题1：使用HashMap编写一个字典"><a href="#例题1：使用HashMap编写一个字典" class="headerlink" title="例题1：使用HashMap编写一个字典"></a>例题1：使用HashMap编写一个字典</h2><pre><code>public class Map01例题 &#123;    public static void main(String[] args) &#123;        Map&lt;String,String&gt; animal=new HashMap&lt;String,String&gt;();        System.out.println(&quot;请输入三组单词对应的注释，并存放到HashMap中&quot;);        Scanner console = new Scanner(System.in);        //添加数据        int i = 0;        while(i&lt;3)&#123;            System.out.println(&quot;请输入key值：&quot;);            String key = console.next();            System.out.println(&quot;请输入value值：&quot;);            String value = console.next();            animal.put(key,value);             i++;    &#125;    System.out.println(&quot;=======&quot;);    //打印输出value的值（直接使用迭代器）    System.out.println(&quot;使用迭代器输出所有value的值：&quot;);    Iterator&lt;String&gt; it= animal.values().iterator();    while(it.hasNext())&#123;        System.out.print(it.next()+&quot; &quot;);    &#125;    System.out.println();    System.out.println(&quot;=======&quot;);    System.out.println(&quot;通过entrySet方法得到Key-Value：&quot;);    Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet=animal.entrySet();    for(Map.Entry&lt;String,String&gt; entry:entrySet)&#123;        System.out.print(entry.getKey()+&quot;-&quot;);        System.out.println(entry.getValue());    &#125;&#125;</code></pre><h2 id="例题2：对字典进行查询"><a href="#例题2：对字典进行查询" class="headerlink" title="例题2：对字典进行查询"></a>例题2：对字典进行查询</h2><pre><code>System.out.println(&quot;请输入要查找的（key）&quot;);//使用keySet方法String strSearch=console.next();//1.取得keySetSet&lt;String&gt; keySet=animal.keySet();//2.遍历KeySetfor(String key:keySet)&#123;    if(strSearch.equals(key))&#123;        System.out.println(&quot;找到了!键值对的值为:&quot;+key+&quot;-&quot;+animal.get(key));        break;    &#125;&#125;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><pre><code>1.底层由数组实现2.元素有序且可以重复3.可以动态增长，以满足应用程序的需求4.元素值可以为null</code></pre><h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><pre><code>1.元素无序并且不可以重复2.只允许一个null元素</code></pre><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><pre><code>1.键不能重复2.允许使用null值和null键3.HashMap中的Entry对象是无序排列的</code></pre><h2 id="Iterator（迭代器"><a href="#Iterator（迭代器" class="headerlink" title="Iterator（迭代器)"></a>Iterator（迭代器)</h2><h3 id="Iterator接口以统一的方式对各种集合元素进行遍历"><a href="#Iterator接口以统一的方式对各种集合元素进行遍历" class="headerlink" title="Iterator接口以统一的方式对各种集合元素进行遍历"></a>Iterator接口以统一的方式对各种集合元素进行遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Iterator&lt;String&gt; it=set.iterator();<br>while(it.hasNext())&#123;<br>    System.out.print(it.next()+&quot; &quot;;<br>&#125;<br></code></pre></td></tr></table></figure><p>HashCode()<br>&#96;&#96;&#96;</p>]]></content>
       
       
       <categories>
           
-          <category> hashmap </category>
-          
-          <category> java </category>
+          <category> -[List] -[java] </category>
           
       </categories>
       
@@ -205,6 +203,35 @@
         <tags>
             
             <tag> java笔记 </tag>
+            
+            <tag> java相关 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HashMap</title>
+      <link href="/2021/11/03/code/CSDN-HashMap/"/>
+      <url>/2021/11/03/code/CSDN-HashMap/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><ol><li><pre><code>Map中的数据是以键值对( key-value )的形式存储的。</code></pre></li><li><pre><code>key-value以Entry类型的对象实例存在。</code></pre></li><li><pre><code>可以通过key值快速地查找value。</code></pre></li><li><pre><code>一个映射不能包含重复的键。也就是说key的值必须为1，一个value可以对应多个key的值。</code></pre><h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1></li><li><pre><code>基于哈希表的Map接口的实现。是Map的实现类。</code></pre></li><li><pre><code>允许使用null值和null键。</code></pre></li><li><pre><code>key值不允许重复。</code></pre></li><li><pre><code>HashMap中的Entry对象是无序排列的。</code></pre></li></ol><h2 id="例题1：使用HashMap编写一个字典"><a href="#例题1：使用HashMap编写一个字典" class="headerlink" title="例题1：使用HashMap编写一个字典"></a>例题1：使用HashMap编写一个字典</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">public class Map01例题 &#123;<br>    public static void main(String[] args) &#123;<br>        Map&lt;String,String&gt; animal=new HashMap&lt;String,String&gt;();<br>        System.out.println(&quot;请输入三组单词对应的注释，并存放到HashMap中&quot;);<br>        Scanner console = new Scanner(System.in);<br>        //添加数据<br>        int i = 0;<br>        while(i&lt;3)&#123;<br>            System.out.println(&quot;请输入key值：&quot;);<br>            String key = console.next();<br>            System.out.println(&quot;请输入value值：&quot;);<br>            String value = console.next();<br>            animal.put(key,value);<br>             i++;<br>    &#125;<br>    System.out.println(&quot;=======&quot;);<br>    //打印输出value的值（直接使用迭代器）<br>    System.out.println(&quot;使用迭代器输出所有value的值：&quot;);<br>    Iterator&lt;String&gt; it= animal.values().iterator();<br>    while(it.hasNext())&#123;<br>        System.out.print(it.next()+&quot; &quot;);<br>    &#125;<br>    System.out.println();<br>    System.out.println(&quot;=======&quot;);<br>    System.out.println(&quot;通过entrySet方法得到Key-Value：&quot;);<br>    Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet=animal.entrySet();<br>    for(Map.Entry&lt;String,String&gt; entry:entrySet)&#123;<br>        System.out.print(entry.getKey()+&quot;-&quot;);<br>        System.out.println(entry.getValue());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="例题2：对字典进行查询"><a href="#例题2：对字典进行查询" class="headerlink" title="例题2：对字典进行查询"></a>例题2：对字典进行查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">System.out.println(&quot;请输入要查找的（key）&quot;);<br>//使用keySet方法<br>String strSearch=console.next();<br><br>//1.取得keySet<br>Set&lt;String&gt; keySet=animal.keySet();<br><br>//2.遍历KeySet<br>for(String key:keySet)&#123;<br>    if(strSearch.equals(key))&#123;<br>        System.out.println(&quot;找到了!键值对的值为:&quot;+key+&quot;-&quot;+animal.get(key));<br>        break;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> -[hashmap] -[java] </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java笔记 </tag>
+            
+            <tag> java相关 </tag>
             
         </tags>
       
