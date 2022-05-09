@@ -1,0 +1,9 @@
+@font-face{
+    font-family: '鸿雷板书简体-测试版.ttf';
+    font-display: swap;
+    src: url('../diy-font/鸿雷板书简体-测试版.ttf') format("truetype");
+}
+
+body {
+    font-family: '鸿雷板书简体-测试版.ttf';
+}
