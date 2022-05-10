@@ -4,31 +4,6 @@
   
     
     <entry>
-      <title>添加天气组件</title>
-      <link href="/2022/05/09/themesetup/%E5%A4%A9%E6%B0%94/"/>
-      <url>/2022/05/09/themesetup/%E5%A4%A9%E6%B0%94/</url>
-      
-        <content type="html"><![CDATA[<pre><code>折腾主题的日子基于hexo和butterfly主题的天气组件</code></pre><p>今天来整天气组件，受<a helf="https://blog.csdn.net/weixin_50915462/article/details/120050294?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165208729916782350990369%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165208729916782350990369&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-2-120050294-null-null.142^v9^control,157^v4^new_style&utm_term=butterfly%E5%B0%8F%E9%83%A8%E4%BB%B6&spm=1018.2226.3001.4187">孙老师</a>启发然后会弄了。</p><h2 id="1-申请天气组件账号"><a href="#1-申请天气组件账号" class="headerlink" title="1.申请天气组件账号"></a>1.申请天气组件账号</h2><p>推荐<span style="color:skyblue">和风天气</span>，<a href="https://id.qweather.com/#/register?redirect=https%3A%2F%2Fconsole.qweather.com" target="_blank">点此注册</a></p><h2 id="2-创建组件"><a href="#2-创建组件" class="headerlink" title="2.创建组件"></a>2.创建组件</h2><p>创建一个自己喜欢的组件外观，<a href="https://widget.qweather.com/create-simple">创建插件</a>然后点击生成代码，一会用</p><h2 id="3-添加配置文件"><a href="#3-添加配置文件" class="headerlink" title="3.添加配置文件"></a>3.添加配置文件</h2><p>在blog\themes\butterfly\layout\includes\headers目录下的nav.pug文件中添加以下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;<br></code></pre></td></tr></table></figure><p>没改过的话应该是这样子的,插入在第四行</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">nav#nav<br>  span#blog_name<br>    a#site-name(href=url_for(&#x27;/&#x27;)) #[=config.title]<br>    &lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;<br>  #menus<br>    if (theme.algolia_search.enable || theme.local_search.enable)<br>      #search-button<br>        a.site-page.social-icon.search<br>          i.fas.fa-search.fa-fw<br>          span=&#x27; &#x27;+_p(&#x27;search.title&#x27;)<br>    !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)<br><br>    #toggle-menu<br>      a.site-page<br>        i.fas.fa-bars.fa-fw<br></code></pre></td></tr></table></figure><h2 id="4-添加weather-js"><a href="#4-添加weather-js" class="headerlink" title="4.添加weather.js"></a>4.添加weather.js</h2><p>将刚才生成的代码复制到这个文件里，在key的字段前面加两个位置的字段,具体数值后续调试</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&quot;left&quot;: &quot;100&quot;,<br>&quot;top&quot;: &quot;8&quot;,<br></code></pre></td></tr></table></figure><pre><code>记得把开头的&lt;div&gt;语句和开头结尾的&lt;script&gt;都删掉</code></pre><h2 id="5-主题配置文件里引入"><a href="#5-主题配置文件里引入" class="headerlink" title="5.主题配置文件里引入"></a>5.主题配置文件里引入</h2><p>在配置文件_config.butterfly的inject属性中bottom:里引入代码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">- &lt;script src=&quot;https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0&quot;&gt;&lt;/script&gt;<br>- &lt;script async src=&quot;/js/weather.js&quot;&gt;&lt;/script&gt;<br><br></code></pre></td></tr></table></figure><h2 id="6-之后调试一下就能使用了，调试left和top属性"><a href="#6-之后调试一下就能使用了，调试left和top属性" class="headerlink" title="6.之后调试一下就能使用了，调试left和top属性"></a>6.之后调试一下就能使用了，调试left和top属性</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> themesetup </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 折腾主题的日子 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>背景图片太多的改进</title>
       <link href="/2022/04/18/themesetup/a/"/>
       <url>/2022/04/18/themesetup/a/</url>
@@ -153,31 +128,6 @@
         <tags>
             
             <tag> 杂谈 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>图标显示问题大讨论</title>
-      <link href="/2022/03/26/error/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/"/>
-      <url>/2022/03/26/error/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/</url>
-      
-        <content type="html"><![CDATA[<h2 id="https-fontawesome-com-图标的网站，记得选老版本的5-15-4"><a href="#https-fontawesome-com-图标的网站，记得选老版本的5-15-4" class="headerlink" title="https://fontawesome.com/ 图标的网站，记得选老版本的5.15.4"></a><a href="https://fontawesome.com/">https://fontawesome.com/</a> 图标的网站，记得选老版本的5.15.4</h2><p>可恶我弄了好久，只能选fab和fas开头的图标，而且那个“-”有三级的还不行，只有两级的能用，要么其他就是显示不出来，乌乌</p><h1 id="能显示的（举个栗子）fab-fa-github"><a href="#能显示的（举个栗子）fab-fa-github" class="headerlink" title="能显示的（举个栗子）fab fa-github"></a>能显示的（举个栗子）fab fa-github</h1><h1 id="不能显示的-fas-fa-tv-retro-far-fa-tv-retro"><a href="#不能显示的-fas-fa-tv-retro-far-fa-tv-retro" class="headerlink" title="不能显示的 fas fa-tv-retro far fa-tv-retro"></a>不能显示的 fas fa-tv-retro far fa-tv-retro</h1><p>是这个主题的问题吗（思索）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> icon </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 报错 </tag>
             
         </tags>
       
