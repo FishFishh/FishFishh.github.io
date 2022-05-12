@@ -4,9 +4,34 @@
   
     
     <entry>
+      <title>白嫖新图床(不是)</title>
+      <link href="/2022/05/12/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E7%99%BD%E5%AB%96%E6%96%B0%E5%9B%BE%E5%BA%8A/"/>
+      <url>/2022/05/12/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E7%99%BD%E5%AB%96%E6%96%B0%E5%9B%BE%E5%BA%8A/</url>
+      
+        <content type="html"><![CDATA[<p>之前我都传到github上面然后在那里用，最近总不好用，甚至显示不出来<br>我就这样复制到url那里然后用：<u>https://github.com/fish214057/PicGoDemo/blob/main/img/%E5%9B%BE%E5%BA%8A.png</u>没有一次能成功显示出来——<del>分明之前能显示！</del><br>之后的我就只能百度搜图，直接copy那些已有的链接。<br>就这样我在copy的过程中发现了某app(我正在用的)的图，我就想啊，我能搜到，那我在那个上面发个图我再去找链接不就好了吗<br>然后我就这样做了，就有了如下过程<br><div class="img-wrap"><div class="img-bg"><img class="img" src="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/图床.png" style="width:300px;"/></div></div><br><div class="img-wrap"><div class="img-bg"><img class="img" src="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/图床2.jpg" style="width:300px;"/></div></div><br>然后直接找到链接复制粘贴进来，（虽然有水印，但是看不出来）一试，成功了！<br><div class="img-wrap"><div class="img-bg"><img class="img" src="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/图床3.png" style="width:300px;"/></div></div><br>OHHHHH！</p><p>————后来————<br><div class="tip warning faa-horizontal animated"><p>我在写的时候意识到我我我好像之前引入图片url时候方式错了（）</p></div><br><del>草！</del>（一种植物）<br><details class="folding-tag" green><summary> 在这贴上正确范例 </summary>              <div class='content'>              <p><a href="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/图床2.png">https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/图床2.png</a></p>              </div>            </details><br><div class="tip warning faa-horizontal animated faa-fast"><p>吃一堑(qian)长一智吧</p></div></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 搞主题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 折腾主题的日子 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>extract</title>
-      <link href="/2022/05/10/mood/extract/"/>
-      <url>/2022/05/10/mood/extract/</url>
+      <link href="/2022/05/10/%E6%91%98%E6%8A%84/extract/"/>
+      <url>/2022/05/10/%E6%91%98%E6%8A%84/extract/</url>
       
         <content type="html"><![CDATA[<p>乌托邦（Utopia）本意是“没有的地方”或者“好地方”。延伸为还有理想，不可能完成的好事情。其中文翻译也可以理解为“乌”是没有，“托”是寄托，“邦”是国家。“乌托邦”三个字合起来的意思即为“空想的国家”。<br>“我的意思是，你在的地方，就是我的理想国。”</p><p>你是我楼外的蒹葭，也希望有一天成为我旁晚的月亮</p><p>“等黑色晕染开变成灰白你我再一同隐于熹微”</p><p>现实还没有板上钉钉不能转圜，也希望我们千万，不要轻飘飘的走散。</p><p>如果人只听从身体的荷尔蒙，那何必进化出发达的大脑和丰富的情感呢。</p><p>经此一刹也觉光阴轻慢</p><p>Pirates and such.世人皆幻影</p><p>我写了几行字<br>爱要藏在哪里才合适<br>你又是否一看便能知</p>]]></content>
       
@@ -18,21 +43,27 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> 文学 </tag>
+            
+        </tags>
+      
     </entry>
     
     
     
     <entry>
       <title>添加天气组件</title>
-      <link href="/2022/05/09/themesetup/%E5%A4%A9%E6%B0%94/"/>
-      <url>/2022/05/09/themesetup/%E5%A4%A9%E6%B0%94/</url>
+      <link href="/2022/05/09/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E5%A4%A9%E6%B0%94/"/>
+      <url>/2022/05/09/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E5%A4%A9%E6%B0%94/</url>
       
         <content type="html"><![CDATA[<pre><code>折腾主题的日子基于hexo和butterfly主题的天气组件</code></pre><p>今天来整天气组件，受<a helf="https://blog.csdn.net/weixin_50915462/article/details/120050294?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165208729916782350990369%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165208729916782350990369&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-2-120050294-null-null.142^v9^control,157^v4^new_style&utm_term=butterfly%E5%B0%8F%E9%83%A8%E4%BB%B6&spm=1018.2226.3001.4187">孙老师</a>启发然后会弄了。</p><h2 id="1-申请天气组件账号"><a href="#1-申请天气组件账号" class="headerlink" title="1.申请天气组件账号"></a>1.申请天气组件账号</h2><p>推荐<span style="color:skyblue">和风天气</span>，<a href="https://id.qweather.com/#/register?redirect=https%3A%2F%2Fconsole.qweather.com" target="_blank">点此注册</a></p><h2 id="2-创建组件"><a href="#2-创建组件" class="headerlink" title="2.创建组件"></a>2.创建组件</h2><p>创建一个自己喜欢的组件外观，<a href="https://widget.qweather.com/create-simple">创建插件</a>然后点击生成代码，一会用</p><h2 id="3-添加配置文件"><a href="#3-添加配置文件" class="headerlink" title="3.添加配置文件"></a>3.添加配置文件</h2><p>在blog\themes\butterfly\layout\includes\headers目录下的nav.pug文件中添加以下内容<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;<br></code></pre></td></tr></table></figure><br>没改过的话应该是这样子的,插入在第四行<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">nav#nav<br>  span#blog_name<br>    a#site-name(href=url_for(&#x27;/&#x27;)) #[=config.title]<br>    &lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;<br>  #menus<br>    if (theme.algolia_search.enable || theme.local_search.enable)<br>      #search-button<br>        a.site-page.social-icon.search<br>          i.fas.fa-search.fa-fw<br>          span=&#x27; &#x27;+_p(&#x27;search.title&#x27;)<br>    !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)<br><br>    #toggle-menu<br>      a.site-page<br>        i.fas.fa-bars.fa-fw<br></code></pre></td></tr></table></figure></p><h2 id="4-添加weather-js"><a href="#4-添加weather-js" class="headerlink" title="4.添加weather.js"></a>4.添加weather.js</h2><p>将刚才生成的代码复制到这个文件里，在key的字段前面加两个位置的字段,具体数值后续调试<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&quot;left&quot;: &quot;100&quot;,<br>&quot;top&quot;: &quot;8&quot;,<br></code></pre></td></tr></table></figure></p><pre><code>记得把开头的&lt;div&gt;语句和开头结尾的&lt;script&gt;都删掉</code></pre><h2 id="5-主题配置文件里引入"><a href="#5-主题配置文件里引入" class="headerlink" title="5.主题配置文件里引入"></a>5.主题配置文件里引入</h2><p>在配置文件_config.butterfly的inject属性中bottom:里引入代码<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">- &lt;script src=&quot;https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0&quot;&gt;&lt;/script&gt;<br>- &lt;script async src=&quot;/js/weather.js&quot;&gt;&lt;/script&gt;<br><br></code></pre></td></tr></table></figure></p><h2 id="6-之后调试一下就能使用了，调试left和top属性"><a href="#6-之后调试一下就能使用了，调试left和top属性" class="headerlink" title="6.之后调试一下就能使用了，调试left和top属性"></a>6.之后调试一下就能使用了，调试left和top属性</h2>]]></content>
       
       
       <categories>
           
-          <category> themesetup </category>
+          <category> 搞主题 </category>
           
       </categories>
       
@@ -49,18 +80,24 @@
     
     <entry>
       <title>母亲节</title>
-      <link href="/2022/05/08/mood/motherday/"/>
-      <url>/2022/05/08/mood/motherday/</url>
+      <link href="/2022/05/08/%E7%94%9F%E6%B4%BB/motherday/"/>
+      <url>/2022/05/08/%E7%94%9F%E6%B4%BB/motherday/</url>
       
         <content type="html"><![CDATA[<h3 id="小时候最想做的事就是快快长大-而大长后最想做的事情是希望妈妈慢点变老"><a href="#小时候最想做的事就是快快长大-而大长后最想做的事情是希望妈妈慢点变老" class="headerlink" title="小时候最想做的事就是快快长大 而大长后最想做的事情是希望妈妈慢点变老"></a>小时候最想做的事就是快快长大 而大长后最想做的事情是希望妈妈慢点变老</h3><h3 id="爱妈妈这件事-不是一年一次-而是每分每秒"><a href="#爱妈妈这件事-不是一年一次-而是每分每秒" class="headerlink" title="爱妈妈这件事 不是一年一次 而是每分每秒"></a>爱妈妈这件事 不是一年一次 而是每分每秒</h3><h3 id="希望妈妈健康快乐幸福"><a href="#希望妈妈健康快乐幸福" class="headerlink" title="希望妈妈健康快乐幸福"></a>希望妈妈健康快乐幸福</h3><h2 id="也祝天下所有的妈妈都身体健康-平安幸福-开开心心"><a href="#也祝天下所有的妈妈都身体健康-平安幸福-开开心心" class="headerlink" title="也祝天下所有的妈妈都身体健康 平安幸福 开开心心"></a>也祝天下所有的妈妈都身体健康 平安幸福 开开心心</h2>]]></content>
       
       
       <categories>
           
-          <category> life </category>
+          <category> 生活 </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
       
     </entry>
     
@@ -68,15 +105,15 @@
     
     <entry>
       <title>背景图片太多的改进</title>
-      <link href="/2022/04/18/themesetup/a/"/>
-      <url>/2022/04/18/themesetup/a/</url>
+      <link href="/2022/04/18/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/a/"/>
+      <url>/2022/04/18/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/a/</url>
       
         <content type="html"><![CDATA[<p>配置文件里面图片放太多了，今天来整理一下，找到的大佬的教程☞☞<a href="https://blog.dearxuan.com/2021/11/29/volantis%E5%A4%9A%E8%83%8C%E6%99%AF%E5%9B%BE%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" target="_blank"> volantis多背景图的优化方案 </a><br>好用<br>就是有时候图床里面的有png也有jpg就会有点难搞，大佬评论区有对应的改进，但是我直接把png全都换成jpg了诶嘿，用的这个网站☞☞<a href="https://convertio.co/zh/" target="_blank">文件转换器</a><br>好用<br>诶嘿</p><p>====4.26的更新=====<br>因为volantis用不来就换回butterfly了，乌乌，有生之年要用一次volantis，因为布局真的好看，hhh<br>有时间再弄</p>]]></content>
       
       
       <categories>
           
-          <category> themesetup </category>
+          <category> 搞主题 </category>
           
       </categories>
       
@@ -93,18 +130,24 @@
     
     <entry>
       <title>rice</title>
-      <link href="/2022/04/05/mood/rice/"/>
-      <url>/2022/04/05/mood/rice/</url>
+      <link href="/2022/04/05/%E7%94%9F%E6%B4%BB/rice/"/>
+      <url>/2022/04/05/%E7%94%9F%E6%B4%BB/rice/</url>
       
         <content type="html"><![CDATA[<p>昨天半夜做的奥利奥大福（<del>米饭和草莓奥利奥</del>）<br><img src="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/202204052156287.jpg"/><br><img src="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/202204052156288.jpg"/></p><h2 id="这是被嫌弃的原料碗，别点开，吼吼吼"><a href="#这是被嫌弃的原料碗，别点开，吼吼吼" class="headerlink" title="这是被嫌弃的原料碗，别点开，吼吼吼"></a>这是被嫌弃的原料碗，别点开，吼吼吼</h2><div class="hide-block"><button type="button" class="hide-button" style="">听我的，别点    </button><div class="hide-content"><p><img src="https://cdn.jsdelivr.net/gh/fish214057/PicGoDemo/img/202204052156289.jpg"/></p></div></div>]]></content>
       
       
       <categories>
           
-          <category> happy </category>
+          <category> 生活 </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
       
     </entry>
     
@@ -112,15 +155,15 @@
     
     <entry>
       <title>picgo</title>
-      <link href="/2022/04/03/error/picgo/"/>
-      <url>/2022/04/03/error/picgo/</url>
+      <link href="/2022/04/03/%E6%9D%82%E8%B0%88/picgo/"/>
+      <url>/2022/04/03/%E6%9D%82%E8%B0%88/picgo/</url>
       
         <content type="html"><![CDATA[<h1 id="乌乌"><a href="#乌乌" class="headerlink" title="乌乌"></a>乌乌</h1><p><img src="img/picgo上传不上去啊.png" alt="乌乌"><br>很简单，嗯，但是总说我服务端出错，requesterror</p><h2 id="vpn换了，之后试了vpn关掉，然后还有用cdn加速，是这个error"><a href="#vpn换了，之后试了vpn关掉，然后还有用cdn加速，是这个error" class="headerlink" title="vpn换了，之后试了vpn关掉，然后还有用cdn加速，是这个error"></a>vpn换了，之后试了vpn关掉，然后还有用cdn加速，是这个error</h2><p>2022-04-04更新——<br><img src="img/picgo修好啦.png" alt="好了！"><br>修好啦，充电器帮我弄了一下镜像就能传了！</p><hr><h3>后来的我已经不用picgo了，直接手动传git（</h3>]]></content>
       
       
       <categories>
           
-          <category> picgo </category>
+          <category> 杂谈 </category>
           
       </categories>
       
@@ -137,18 +180,24 @@
     
     <entry>
       <title>play</title>
-      <link href="/2022/04/03/mood/play/"/>
-      <url>/2022/04/03/mood/play/</url>
+      <link href="/2022/04/03/%E7%94%9F%E6%B4%BB/play/"/>
+      <url>/2022/04/03/%E7%94%9F%E6%B4%BB/play/</url>
       
         <content type="html"><![CDATA[<h1 id="健康的有氧运动"><a href="#健康的有氧运动" class="headerlink" title="健康的有氧运动"></a>健康的有氧运动</h1><p>今天和工作室他们三个一起打了羽毛球，都好强，潘姐姐打的最厉害，啥球都能接住，我和他在一边时候都不用我接球，<del>摆烂</del><br>平时运动运动也是不错！嘿嘿嘿。</p>]]></content>
       
       
       <categories>
           
-          <category> happy </category>
+          <category> 生活 </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
       
     </entry>
     
@@ -156,18 +205,24 @@
     
     <entry>
       <title>test</title>
-      <link href="/2022/03/28/mood/test/"/>
-      <url>/2022/03/28/mood/test/</url>
+      <link href="/2022/03/28/%E6%AD%A3%E7%BB%8F%E6%96%87%E7%AB%A0/test/"/>
+      <url>/2022/03/28/%E6%AD%A3%E7%BB%8F%E6%96%87%E7%AB%A0/test/</url>
       
-        <content type="html"><![CDATA[<p>唔额额</p>]]></content>
+        <content type="html"><![CDATA[<p>空空如也</p>]]></content>
       
       
       <categories>
           
-          <category> happy </category>
+          <category> 正经文章 </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> 原创 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -175,22 +230,22 @@
     
     <entry>
       <title>我是菜狗</title>
-      <link href="/2022/03/26/miscellaneous%20talk/%E6%88%91%E6%98%AF%E8%8F%9C%E7%8B%97/"/>
-      <url>/2022/03/26/miscellaneous%20talk/%E6%88%91%E6%98%AF%E8%8F%9C%E7%8B%97/</url>
+      <link href="/2022/03/26/%E6%9D%82%E8%B0%88/%E6%88%91%E6%98%AF%E8%8F%9C%E7%8B%97/"/>
+      <url>/2022/03/26/%E6%9D%82%E8%B0%88/%E6%88%91%E6%98%AF%E8%8F%9C%E7%8B%97/</url>
       
         <content type="html"><![CDATA[<h2 id="我"><a href="#我" class="headerlink" title="我"></a>我</h2><h2 id="是"><a href="#是" class="headerlink" title="是"></a>是</h2><h2 id="菜"><a href="#菜" class="headerlink" title="菜"></a>菜</h2><h2 id="狗"><a href="#狗" class="headerlink" title="狗"></a>狗</h2>]]></content>
       
       
       <categories>
           
-          <category> 乱七八糟 </category>
+          <category> 杂谈 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 杂谈 </tag>
+            <tag> 乱七八糟 </tag>
             
         </tags>
       
@@ -200,15 +255,15 @@
     
     <entry>
       <title>图标显示问题大讨论</title>
-      <link href="/2022/03/26/error/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/"/>
-      <url>/2022/03/26/error/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/</url>
+      <link href="/2022/03/26/%E6%9D%82%E8%B0%88/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/"/>
+      <url>/2022/03/26/%E6%9D%82%E8%B0%88/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/</url>
       
         <content type="html"><![CDATA[<h2 id="https-fontawesome-com-图标的网站，记得选老版本的5-15-4"><a href="#https-fontawesome-com-图标的网站，记得选老版本的5-15-4" class="headerlink" title="https://fontawesome.com/ 图标的网站，记得选老版本的5.15.4"></a><a href="https://fontawesome.com/">https://fontawesome.com/</a> 图标的网站，记得选老版本的5.15.4</h2><p>可恶我弄了好久，只能选fab和fas开头的图标，而且那个“-”有三级的还不行，只有两级的能用，要么其他就是显示不出来，乌乌</p><h1 id="能显示的（举个栗子）fab-fa-github"><a href="#能显示的（举个栗子）fab-fa-github" class="headerlink" title="能显示的（举个栗子）fab fa-github"></a>能显示的（举个栗子）fab fa-github</h1><h1 id="不能显示的-fas-fa-tv-retro-far-fa-tv-retro"><a href="#不能显示的-fas-fa-tv-retro-far-fa-tv-retro" class="headerlink" title="不能显示的 fas fa-tv-retro far fa-tv-retro"></a>不能显示的 fas fa-tv-retro far fa-tv-retro</h1><p>是这个主题的问题吗（思索）</p>]]></content>
       
       
       <categories>
           
-          <category> icon </category>
+          <category> 杂谈 </category>
           
       </categories>
       
@@ -225,22 +280,22 @@
     
     <entry>
       <title>helloworld</title>
-      <link href="/2022/03/25/miscellaneous%20talk/helloworld/"/>
-      <url>/2022/03/25/miscellaneous%20talk/helloworld/</url>
+      <link href="/2022/03/25/%E6%9D%82%E8%B0%88/helloworld/"/>
+      <url>/2022/03/25/%E6%9D%82%E8%B0%88/helloworld/</url>
       
         <content type="html"><![CDATA[<p>This is my first post.<br>This is write by <a href="https://hexo.io/">Hexo</a>!</p><h2 id="Fish的第一个博客"><a href="#Fish的第一个博客" class="headerlink" title="Fish的第一个博客"></a>Fish的第一个博客</h2><h3 id="下面是hexo一些操作操作，留着留着"><a href="#下面是hexo一些操作操作，留着留着" class="headerlink" title="下面是hexo一些操作操作，留着留着"></a>下面是hexo一些操作操作，留着留着</h3><p>创建一个标签页,添加type: “tags”</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new page tags<br></code></pre></td></tr></table></figure><p>再创建一个,添加type: categories</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new page categories<br></code></pre></td></tr></table></figure><p>创建一个友链,添加type: link</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new page <span class="hljs-built_in">link</span><br></code></pre></td></tr></table></figure><p>Create a new post</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>创建一个子页面</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo n page xxxxx<br></code></pre></td></tr></table></figure><p>copyright_author: fish<br>copyright_author_href: <a href="https://github.com/fish214057">https://github.com/fish214057</a><br>copyright_url: “helloworld.md”<br>copyright_info: 此文章版权归原作者所有，如有转载，请註明来自原作者</p>]]></content>
       
       
       <categories>
           
-          <category> 乱七八糟 </category>
+          <category> 杂谈 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 杂谈 </tag>
+            <tag> 乱七八糟 </tag>
             
         </tags>
       
@@ -250,22 +305,22 @@
     
     <entry>
       <title>集合の总结_(:з」∠)</title>
-      <link href="/2021/11/04/code/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/"/>
-      <url>/2021/11/04/code/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/</url>
+      <link href="/2021/11/04/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/"/>
+      <url>/2021/11/04/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/</url>
       
         <content type="html"><![CDATA[<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><pre><code>1.底层由数组实现2.元素有序且可以重复3.可以动态增长，以满足应用程序的需求4.元素值可以为null</code></pre><h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><pre><code>1.元素无序并且不可以重复2.只允许一个null元素</code></pre><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><pre><code>1.键不能重复2.允许使用null值和null键3.HashMap中的Entry对象是无序排列的</code></pre><h2 id="Iterator（迭代器"><a href="#Iterator（迭代器" class="headerlink" title="Iterator（迭代器)"></a>Iterator（迭代器)</h2><h3 id="Iterator接口以统一的方式对各种集合元素进行遍历"><a href="#Iterator接口以统一的方式对各种集合元素进行遍历" class="headerlink" title="Iterator接口以统一的方式对各种集合元素进行遍历"></a>Iterator接口以统一的方式对各种集合元素进行遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Iterator&lt;String&gt; it=set.iterator();<br>while(it.hasNext())&#123;<br>    System.out.print(it.next()+&quot; &quot;;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="HashCode"><a href="#HashCode" class="headerlink" title="HashCode()"></a>HashCode()</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">public int hashCode() &#123;<br>    final int prime = 31;<br>    int result = 1;<br>    result = prime * result + age;<br>    result = prime * result + ((name == null) ? 0 : name.hashCode());<br>    result = prime * result + ((species = = null) ? 0 : species.hashCode());<br>    return result;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">public boolean equals(Object obj) &#123;<br>    if (this == obj)<br>        return true;<br>    if(obj.getClass()==Cat.class)&#123;<br>        Cat cat=(Cat)obj;<br>    return cat.getName().equals(name)&amp;&amp;(cat.getAge()==age)&amp;&amp;cat.getSpecies().equals(species);<br>    &#125;<br>    return false;<br>&#125;<br></code></pre></td></tr></table></figure><p><img src="https://img-blog.csdnimg.cn/0577d2ca7e8544c4bf097d9b0e508ef7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6bG85q-T5bG_5b6h,size_20,color_FFFFFF,t_70,g_se,x_16"></p>]]></content>
       
       
       <categories>
           
-          <category> java </category>
+          <category> 鱼の笔记 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> java笔记 </tag>
+            <tag> java </tag>
             
         </tags>
       
@@ -275,22 +330,22 @@
     
     <entry>
       <title>HashMap</title>
-      <link href="/2021/11/03/code/CSDN-HashMap/"/>
-      <url>/2021/11/03/code/CSDN-HashMap/</url>
+      <link href="/2021/11/03/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-HashMap/"/>
+      <url>/2021/11/03/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-HashMap/</url>
       
         <content type="html"><![CDATA[<span class='p center logo large'>HashMap</span><h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><div class='checkbox red'><input type="radio" />            <p>Map中的数据是以键值对( key-value )的形式存储的。</p>            </div><div class='checkbox green'><input type="radio" />            <p>key-value以Entry类型的对象实例存在。</p>            </div><div class='checkbox yellow'><input type="radio" />            <p>可以通过key值快速地查找value。</p>            </div><div class='checkbox cyan'><input type="radio" />            <p>一个映射不能包含重复的键。也就是说key的值必须为1，一个value可以对应多个key的值。</p>            </div><h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><ol><li>基于哈希表的Map接口的实现。是Map的实现类。</li><li>允许使用null值和null键。</li><li>key值不允许重复。</li><li>HashMap中的Entry对象是无序排列的。 </li></ol><h2 id="例题1：使用HashMap编写一个字典"><a href="#例题1：使用HashMap编写一个字典" class="headerlink" title="例题1：使用HashMap编写一个字典"></a>例题1：使用HashMap编写一个字典</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">public class Map01例题 &#123;<br>    public static void main(String[] args) &#123;<br>        Map&lt;String,String&gt; animal=new HashMap&lt;String,String&gt;();<br>        System.out.println(&quot;请输入三组单词对应的注释，并存放到HashMap中&quot;);<br>        Scanner console = new Scanner(System.in);<br>        //添加数据<br>        int i = 0;<br>        while(i&lt;3)&#123;<br>            System.out.println(&quot;请输入key值：&quot;);<br>            String key = console.next();<br>            System.out.println(&quot;请输入value值：&quot;);<br>            String value = console.next();<br>            animal.put(key,value);<br>             i++;<br>    &#125;<br>    System.out.println(&quot;=======&quot;);<br>    //打印输出value的值（直接使用迭代器）<br>    System.out.println(&quot;使用迭代器输出所有value的值：&quot;);<br>    Iterator&lt;String&gt; it= animal.values().iterator();<br>    while(it.hasNext())&#123;<br>        System.out.print(it.next()+&quot; &quot;);<br>    &#125;<br>    System.out.println();<br>    System.out.println(&quot;=======&quot;);<br>    System.out.println(&quot;通过entrySet方法得到Key-Value：&quot;);<br>    Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet=animal.entrySet();<br>    for(Map.Entry&lt;String,String&gt; entry:entrySet)&#123;<br>        System.out.print(entry.getKey()+&quot;-&quot;);<br>        System.out.println(entry.getValue());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="例题2：对字典进行查询"><a href="#例题2：对字典进行查询" class="headerlink" title="例题2：对字典进行查询"></a>例题2：对字典进行查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">System.out.println(&quot;请输入要查找的（key）&quot;);<br>//使用keySet方法<br>String strSearch=console.next();<br><br>//1.取得keySet<br>Set&lt;String&gt; keySet=animal.keySet();<br><br>//2.遍历KeySet<br>for(String key:keySet)&#123;<br>    if(strSearch.equals(key))&#123;<br>        System.out.println(&quot;找到了!键值对的值为:&quot;+key+&quot;-&quot;+animal.get(key));<br>        break;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
           
-          <category> hashmap </category>
+          <category> 鱼の笔记 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> java相关 </tag>
+            <tag> java </tag>
             
         </tags>
       
