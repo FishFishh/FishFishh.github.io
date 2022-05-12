@@ -1,9 +1,9 @@
 @font-face{
-    font-family: '鸿雷板书简体-测试版.ttf';
+    font-family: '方正乾隆体.TTF';
     font-display: swap;
-    src: url('../diy-font/鸿雷板书简体-测试版.ttf') format("truetype");
+    src: url('../diy-font/方正乾隆体.TTF') format("truetype");
 }
 
 body {
-    font-family: '鸿雷板书简体-测试版.ttf';
+    font-family: '方正乾隆体.TTF';
 }
