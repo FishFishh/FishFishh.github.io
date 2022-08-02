@@ -8,7 +8,7 @@
       <link href="/2022/08/02/%E7%94%9F%E6%B4%BB/8.2/"/>
       <url>/2022/08/02/%E7%94%9F%E6%B4%BB/8.2/</url>
       
-        <content type="html"><![CDATA[<div class="img-wrap"><div class="img-bg" style="background:#1D0C04"><img class="img" src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/dogmother.jpg" alt="狗妈妈叼着小狗狗" style="width:400px;"/></div><span class="image-caption">狗妈妈叼着小狗狗</span></div><p>早上出门时候看见狗妈妈叼着小狗狗，小狗狗在小声叫，可爱捏</p>]]></content>
+        <content type="html"><![CDATA[<div class="img-wrap"><div class="img-bg" style="background:#1D0C04"><img class="img" src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/dogmother.jpg" alt="狗妈妈叼着小狗狗" style="width:400px;"/></div><span class="image-caption">狗妈妈叼着小狗狗</span></div><p>早上出门时候看见狗妈妈叼着小狗狗，小狗狗在小声叫，可爱捏</p><p>中午搞了搞友链朋友圈，失败而告终。自己没弄懂，而且大佬的npm也挂了。</p><details class="folding-tag" cyan open><summary> Akilar </summary>              <div class='content'>              <p>elemecdn挂了。国内基本没有好用的npm镜像了。所以js加载不出来。自然就没有内容了。在node_module文件夹下找到这个插件，lib目录下面有js和css的资源，然后把js、css存到本地引用吧。</p>              </div>            </details><p>不搞了，害。等我啥时候有兴致再继续弄。</p>]]></content>
       
       
       <categories>
