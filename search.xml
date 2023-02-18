@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Spring Security</title>
+      <link href="/2022/11/13/%E6%AD%A3%E7%BB%8F%E6%96%87%E7%AB%A0/SpringSecurity%E7%AC%94%E8%AE%B0/"/>
+      <url>/2022/11/13/%E6%AD%A3%E7%BB%8F%E6%96%87%E7%AB%A0/SpringSecurity%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<p>学习Spring Security的笔记</p><span id="more"></span><h2 id="1-注"><a href="#1-注" class="headerlink" title="-1.注"></a>-1.注</h2><p>本文是根据up主<br><a href="https://www.bilibili.com/video/BV1mm4y1X7Hc/?spm_id_from=333.337.search-card.all.click&amp;vd_source=9ced108d812918e59caec3ce1751c507" target="_blank">三更草堂</a><br>写的，内容和他记的课程笔记差不多，大同小异（x）</p><p>他讲的比较不错，可以去看看~</p><h2 id="0-简介"><a href="#0-简介" class="headerlink" title="0.简介"></a>0.简介</h2><p>​<strong>Spring Security</strong>是Spring家族中的一个安全管理框架。相比与另外-个安全框架<strong>Shiro</strong>,它提供了更丰富的功能，社区资源也比Shiro丰富。<br>​一般来说中大型的项目都是使用<strong>SpringSecurity</strong>来做安全框架。小项目有Shiro的比较多，因为相毗与SpringSecurity, Shiro的上手更加的简单。<br>​一般Web应用的要进行<strong>认证</strong>和<strong>授权</strong>。<br>​<strong>认证:验证当前访问系统的是不是本系统的用户,并且要确认具体是哪个用户</strong><br>​<strong>授权:经过认证后判断当前用户是否有权限进行某个操作</strong><br>​而认证和授权也是SpringSecurity作为安全框架的核心功能。</p><h2 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h2><h4 id="1-1-准备"><a href="#1-1-准备" class="headerlink" title="1.1 准备"></a>1.1 准备</h4><h5 id="设置父工程，添加依赖"><a href="#设置父工程，添加依赖" class="headerlink" title="设置父工程，添加依赖"></a>设置父工程，添加依赖</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;<span class="number">2.7</span><span class="number">.5</span>&lt;/version&gt;</span><br><span class="line">&lt;/parent&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">&lt;optional&gt;<span class="literal">true</span>&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure><h5 id="创建controller"><a href="#创建controller" class="headerlink" title="创建controller"></a>创建controller</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloController</span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">hello</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="2-认证"><a href="#2-认证" class="headerlink" title="2.认证"></a>2.认证</h4><h5 id="2-1登陆流程"><a href="#2-1登陆流程" class="headerlink" title="2.1登陆流程"></a>2.1登陆流程</h5><p><img src="C:\Users\fish\AppData\Roaming\Typora\typora-user-images\image-20221107171732190.png" class="lazyload" data-srcset="C:\Users\fish\AppData\Roaming\Typora\typora-user-images\image-20221107171732190.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20221107171732190"></p><h5 id="2-2解决思路"><a href="#2-2解决思路" class="headerlink" title="2.2解决思路"></a>2.2解决思路</h5><p>登录<br>    ①自定义登录接口<br>        调用ProviderManager的方法进行认证如果认证通过生成jwt<br>        把用户信息存入redis中<br>    ②自定义UserDetailsService<br>        在这个实现列中去查询数据库<br>校验:<br>    定义jwt认证过滤器<br>        获取token<br>        解析token获取其中的userid<br>        从redis中获取用户信息<br>        存入SecurityContextHolder</p><h5 id="2-3准备工作"><a href="#2-3准备工作" class="headerlink" title="2.3准备工作"></a>2.3准备工作</h5><h6 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--redis依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--fastjson依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">1.2</span><span class="number">.33</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--jwt依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;jjwt&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">0.9</span><span class="number">.0</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 正经文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring Security </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>开往~</title>
+      <link href="/2022/10/22/link-post/"/>
+      <url>/2022/10/22/link-post/</url>
+      
+        <content type="html"><![CDATA[<p>travelling~</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>好笑</title>
+      <link href="/2022/10/20/%E7%94%9F%E6%B4%BB/%E5%A5%BD%E7%AC%91/"/>
+      <url>/2022/10/20/%E7%94%9F%E6%B4%BB/%E5%A5%BD%E7%AC%91/</url>
+      
+        <content type="html"><![CDATA[<p>感觉心空空的</p><span id="more"></span><h3 id="如果谁都没来过"><a href="#如果谁都没来过" class="headerlink" title="如果谁都没来过"></a>如果谁都没来过</h3><p>这次又是你提出来的，之前也总是这样说，你从来也没把我划到你的未来里面去，你说了分开，你说想要一个人，我挽留了，那天之后我难过了好久好久，想到就会哭。第二天想了一上午，放下了，决定不做为爱哭泣的小狗，然后你又找我和好，哈哈，好吧，难过都是白难过了，不过我很开心，至少还能和你在一起，谁知道你并不是真的想一直在一起，并没有想复合，只是打发无聊的时间罢了，再利用我，几天。凭什么我要这样被玩弄，很可笑，“如果我会结婚，至少不是你”什么虐文情节，出现在我身上，路人想想都觉得是有什么深仇大恨的地步。突然感觉恶心，这样的关系只是自欺欺人，像吸毒一样，明明知道马上要死了，但是还是甘之如饴。但是没有沉沦下去，我决定了已经，你甚至都不愿意说句假话，我也直抒胸臆，直接讲清楚不是更好吗，中肯一点，然后就这样分道扬镳吧，受够了你把我耍的团团转。就算会难过，想想之前的日子，想想之前的回忆，和你不知道为何变了的心。可能我本来也不了解你，你没有心，谁都走不进去。真想看看你未来的老婆是什么样的啊，她是什么样的人。没有一直成为你的偏爱，真遗憾啊。</p><p>最后一篇碎碎念,我把两篇合成一个了，感觉自己也没写啥东西。都是些破事</p><p>人为什么会有感情，你是过客，极其理智的过客。你来了又走了，弄得我一池涟漪。我只有无尽的后悔与委屈，眼看着事实的锤敲下，却无法敲醒我。我沉沦在梦里。<br>这段恋情开始于2020年12月2日，第一次遇见你是8月25号，结束于2022年10月17日。</p><p>我想我不会这么深刻喜欢一个人了</p><p>之前看见的，没想到我也能用上(x</p><p>我是102号鱼鱼小行星，负责守护接手长达两年的201号昊昊小行星，于2022年10月17号晚20:45遗失小行星轨迹，任务失败，小行星已被其他宇航员接手，燃料已耗尽，请求流浪！宇宙，祝你幸福！重复，祝你幸福！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> feeling </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>confused</title>
+      <link href="/2022/10/10/%E7%94%9F%E6%B4%BB/confused/"/>
+      <url>/2022/10/10/%E7%94%9F%E6%B4%BB/confused/</url>
+      
+        <content type="html"><![CDATA[<p>confused</p><span id="more"></span><p>虽然坚定的和父母商量是否支持我考研，但是实际上，复习的这几天，每天都忍不住玩会游戏。自控力很差吧，安慰着自己，别人也会偶尔玩玩之类的，但是内心很清楚。<br>真的能坚持下来吗。<br>毕业就是大人了，亚咩咯，要养活自己了。互联网就业很难8，互联网寒冬，我一个小小的双非有啥用呢。<br>不毕业，就是考研，hhhhh，上学就还可以苟着。<br>“相信自己”，我考上研究生的哥对我这样说。<br>或许真的是不自信，很清醒的自我认知捏。<br>要自信起来！摇摆着是决定不好事情的。<br>我再学几年。</p><img no-lazy class="inline" src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/1551.jpg" style="height:60px;"/> <p>乌乌。<br>希望自己会努力的吧。<br>今天也比昨天进步一点点就好了。</p><p>我要考研！<br>以后来还愿</p><p>忘了说，今天是跑步第三天。<br>坚持了三天捏！<img no-lazy class="inline" src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/聪明.jpg" style="height:30px;"/></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 考研 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>二流小说家</title>
+      <link href="/2022/08/13/%E6%91%98%E6%8A%84/%E4%BA%8C%E6%B5%81%E5%B0%8F%E8%AF%B4%E5%AE%B6/"/>
+      <url>/2022/08/13/%E6%91%98%E6%8A%84/%E4%BA%8C%E6%B5%81%E5%B0%8F%E8%AF%B4%E5%AE%B6/</url>
+      
+        <content type="html"><![CDATA[<p>好像是序</p><span id="more"></span><p>一部小说的第一句是最重要的，也许只有最后一句能相提并论，因为最后一句会在你合上书本之后留在你的脑海里，就像关门的回声跟着你穿过走廊，但这时候已经晚了，因为你已经读完了整本书。有很长一段时间，我在书店只要拿起一本新书，就会强迫症发作似的想翻到最后一页，读最后一个句子。我控制不住我的好奇心。我不知道我为何要这么做，只知道我可以这么做，而如果我可以这么做，就必须这么做。这是孩童的那种冲动——见到包装纸就想撕，捂着眼睛从指缝里看恐怖片。我们无法抵抗偷窥的欲望，哪怕是看我们知道我们不该看的东西，哪怕是看我们不想看的东西，哪怕是看会让我们害怕的东西。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 摘抄 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>8.8 晴</title>
+      <link href="/2022/08/08/%E7%94%9F%E6%B4%BB/8.8/"/>
+      <url>/2022/08/08/%E7%94%9F%E6%B4%BB/8.8/</url>
+      
+        <content type="html"><![CDATA[<p>最近在搞的）</p><span id="more"></span><p>最近在用<a href="https://go.dev/" target="_blank">golang</a>写那个q群机器人<br>前一阶段是直接下载<a href="https://yimo0908.github.io/get-your-own-otterbot/#/" target="_blank">獭獭</a>，好用，而且没有电脑基础的人都能看懂<br>摸了一天，就自己 <del>摸鱼玩玩</del> ，后来就想自己写机器人来着<br>接下来说说 <a href="https://docs.go-cqhttp.org/" target="_blank">go-cqhttp</a></p><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/Mrs4s/go-cqhttp"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Mrs4s&repo=go-cqhttp&show_owner=true" class="lazyload" data-srcset="https://github-readme-stats.vercel.app/api/pin/?username=Mrs4s&repo=go-cqhttp&show_owner=true" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/></a> <p>go-cqhttp提供了一个qq的接口，然后是调用这个接口去开发<br>文档写的也很详细，我用的是正向WebSocket登陆，实际是可以双向接口登录的，等我再探索探索<br>学这些其实也是学go语言，然后就开始学了点go，嘿嘿<img no-lazy class="inline" src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/emoji/ca.jpg" style="height:80px;"/></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一分钟让机器人说helloworld</title>
+      <link href="/2022/08/08/%E6%AD%A3%E7%BB%8F%E6%96%87%E7%AB%A0/%E5%AD%A6%E7%82%B9go/"/>
+      <url>/2022/08/08/%E6%AD%A3%E7%BB%8F%E6%96%87%E7%AB%A0/%E5%AD%A6%E7%82%B9go/</url>
+      
+        <content type="html"><![CDATA[<p>学点go</p><span id="more"></span><p>一分钟让机器人说helloworld</p><div class="note "><p>做这些的前置条件是应该先把go-cqhttp运行并且已经登录了botqq的</p></div><h2 id="创建-一个-main-go-文件"><a href="#创建-一个-main-go-文件" class="headerlink" title="创建 一个 main.go 文件"></a>创建 一个 main.go 文件</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">zero <span class="string">&quot;github.com/wdvxdr1123/ZeroBot&quot;</span></span><br><span class="line"><span class="string">&quot;github.com/wdvxdr1123/ZeroBot/driver&quot;</span></span><br><span class="line"><span class="string">&quot;github.com/wdvxdr1123/ZeroBot/message&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">engine := zero.New()</span><br><span class="line">engine.OnFullMatch(<span class="string">&quot;hello&quot;</span>).Handle(<span class="function"><span class="keyword">func</span><span class="params">(ctx *zero.Ctx)</span></span> &#123;</span><br><span class="line">ctx.SendChain(message.Text(<span class="string">&quot;hello world!&quot;</span>))</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">zero.RunAndBlock(zero.Config&#123;</span><br><span class="line">NickName:      []<span class="type">string</span>&#123;<span class="string">&quot;bot&quot;</span>&#125;,</span><br><span class="line">CommandPrefix: <span class="string">&quot;/&quot;</span>,</span><br><span class="line">SuperUsers:    []<span class="type">int64</span>&#123;<span class="number">123456</span>(这里是主人qq号)&#125;,</span><br><span class="line">Driver: []zero.Driver&#123;</span><br><span class="line">driver.NewWebSocketClient(<span class="string">&quot;ws://127.0.0.1:6700/&quot;</span>, <span class="string">&quot;&quot;</span>),</span><br><span class="line">&#125;,</span><br><span class="line">&#125;, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="然后终端输入-go-mod-init-hello"><a href="#然后终端输入-go-mod-init-hello" class="headerlink" title="然后终端输入 go mod init hello"></a>然后终端输入 go mod init hello</h3><h3 id="然后就创建了一个go-mod文件"><a href="#然后就创建了一个go-mod文件" class="headerlink" title="然后就创建了一个go.mod文件"></a>然后就创建了一个go.mod文件</h3><h3 id="下一步终端输入-go-mod-tidy"><a href="#下一步终端输入-go-mod-tidy" class="headerlink" title="下一步终端输入 go mod tidy"></a>下一步终端输入 go mod tidy</h3><p>导入一些插件和依赖</p><h3 id="之后终端输入-go-run-双引号-”路径-x2F-main-go”-双引号"><a href="#之后终端输入-go-run-双引号-”路径-x2F-main-go”-双引号" class="headerlink" title="之后终端输入 go run (双引号)”路径&#x2F;main.go”(双引号)"></a>之后终端输入 go run (双引号)”路径&#x2F;main.go”(双引号)</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 正经文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>8.2</title>
+      <link href="/2022/08/02/%E7%94%9F%E6%B4%BB/8.2/"/>
+      <url>/2022/08/02/%E7%94%9F%E6%B4%BB/8.2/</url>
+      
+        <content type="html"><![CDATA[<p>摸了一天好累喔</p><span id="more"></span><div class="img-wrap"><div class="img-bg" style="background:#1D0C04"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/dogmother.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/dogmother.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="狗妈妈叼着小狗狗" style="width:400px;"/></div><span class="image-caption">狗妈妈叼着小狗狗</span></div><p>早上出门时候看见狗妈妈叼着小狗狗，小狗狗在小声叫，可爱捏</p><p>中午搞了搞友链朋友圈，失败而告终。自己没弄懂，而且大佬的npm也挂了。</p><details cyan open><summary> Akilar </summary>              <div class='content'>              <p>elemecdn挂了。国内基本没有好用的npm镜像了。所以js加载不出来。自然就没有内容了。在node_module文件夹下找到这个插件，lib目录下面有js和css的资源，然后把js、css存到本地引用吧。</p>              </div>            </details><p>不搞了，害。等我啥时候有兴致再继续弄。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.31</title>
+      <link href="/2022/07/31/%E7%94%9F%E6%B4%BB/7.31/"/>
+      <url>/2022/07/31/%E7%94%9F%E6%B4%BB/7.31/</url>
+      
+        <content type="html"><![CDATA[<p>生活碎片</p><span id="more"></span><p>为期十天的小假期结束了，开始往学校赶。</p><p>还有半个月就比赛了喔</p><p>到沈阳的高铁上，有个老太太坐了我的靠窗位置，我默默在她旁边坐下没说什么，她看着窗外，望向远方。<br>虽然到最后还是坐到了靠窗的位置，外面的电线杆（好像是）过一段时间就过去一个，给人感觉昏昏的。睡一会。</p><p>沈阳北站漏雨——猝不及防被砸了一滴<br>在门口的时候看见一个黑色鸭舌帽黑色口罩的男人在摸摸她女朋友的头，满脸宠溺，之后女孩进站了，男的站在门口目送她进去。猝不及防吃了一口狗粮，甜甜甜。</p><p>稀里糊涂的就上了火车，将迎来20小时的路程。<br>装睡.jpg</p><p>怎么有人看剧还这么大声（<br>听的二手剧好清楚，一字一句都能听见。坏耶。<br>——第二天听他们闲聊才知道晚上是忘关了（蠢男人</p><p>想起每天和亲友聊天的内容要是写成日记，一定会好厚一大摞，懒得写，（摊）<br>今天久违的更新一下罢</p><p>——第二天——<br>带了泡面忘带筷子<br>寄<br>然后刚好餐车过来我去问能不能卖我个筷子<br>她说不卖啊，都配套的，不来买个盒饭不<br>我说我有饭了<br>最后还是给了我一个筷子<br>hhhhh好人</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> train </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>梦魇——头痛</title>
+      <link href="/2022/05/15/%E7%94%9F%E6%B4%BB/headacheee/"/>
+      <url>/2022/05/15/%E7%94%9F%E6%B4%BB/headacheee/</url>
+      
+        <content type="html"><![CDATA[<p>头痛乌乌</p><span id="more"></span><p>早起做完核酸就继续了之前的梦境，我现在在想也可能并没有继续，只不过那种感觉很强烈，像是继续了先前的场景。<br>梦中人和我有着牵连的纠葛，或许是很喜欢，醒来有种惘然。为了他直面灾难的场景，换作是现在，我或许也会去昊仔做这些。<br>在梦中有种背德感，赫赫，但意识到是梦也就继续下去这段剧情。<br>后劲很大。<br>头痛欲裂。<br>走路晃一下都会痛的程度。</p><p>早睡早起罢</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> headache </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>白嫖新图床(不是)</title>
+      <link href="/2022/05/12/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E7%99%BD%E5%AB%96%E6%96%B0%E5%9B%BE%E5%BA%8A/"/>
+      <url>/2022/05/12/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E7%99%BD%E5%AB%96%E6%96%B0%E5%9B%BE%E5%BA%8A/</url>
+      
+        <content type="html"><![CDATA[<p>图片显示不出来的解决办法（迫真</p><span id="more"></span><p>之前我都传到github上面然后在那里用，最近总不好用，甚至显示不出来<br>我就这样复制到url那里然后用：<a href="https://github.com/FishFishh/PicGoDemo/blob/main/img/%E5%9B%BE%E5%BA%8A.png">https://github.com/FishFishh/PicGoDemo/blob/main/img/%E5%9B%BE%E5%BA%8A.png</a> 没有一次能成功显示出来——<del>分明之前能显示！</del><br>之后的我就只能百度搜图，直接copy那些已有的链接。<br>就这样我在copy的过程中发现了某app(我正在用的)的图，我就想啊，我能搜到，那我在那个上面发个图我再去找链接不就好了吗<br>然后我就这样做了，就有了如下过程<br><a href="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/%E5%9B%BE%E5%BA%8A.png">https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/图床.png</a><br><a href="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/%E5%9B%BE%E5%BA%8A2.jpg">https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/图床2.jpg</a><br>然后直接找到链接复制粘贴进来，（虽然有水印，但是看不出来）一试，成功了！<br><a href="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/%E5%9B%BE%E5%BA%8A3.png">https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/图床3.png</a><br>OHHHHH！</p><p>——–后来——–<br>我在写的时候意识到我我我好像之前引入图片url时候方式错了（）</p><del>草！</del>（一种植物）<p>在这贴上正确范例<br><a href="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/%E5%9B%BE%E5%BA%8A2.png">https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/图床2.png</a></p><p>吃一堑(qian)长一智吧</p><details ><summary> 铸币了 </summary>              <div class='content'>              <p><img src="https://ae01.alicdn.com/kf/H5739b6bceefb456ab013c8cbb4aebfa6C.jpg" class="lazyload" data-srcset="https://ae01.alicdn.com/kf/H5739b6bceefb456ab013c8cbb4aebfa6C.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>              </div>            </details>]]></content>
+      
+      
+      <categories>
+          
+          <category> 折腾主题的日子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 搞主题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>extract</title>
+      <link href="/2022/05/10/%E6%91%98%E6%8A%84/extract/"/>
+      <url>/2022/05/10/%E6%91%98%E6%8A%84/extract/</url>
+      
+        <content type="html"><![CDATA[<p>你是我楼外的蒹葭，也希望有一天成为我旁晚的月亮</p><span id="more"></span><p>乌托邦（Utopia）本意是“没有的地方”或者“好地方”。延伸为还有理想，不可能完成的好事情。其中文翻译也可以理解为“乌”是没有，“托”是寄托，“邦”是国家。“乌托邦”三个字合起来的意思即为“空想的国家”。<br>“我的意思是，你在的地方，就是我的理想国。”</p><p>你是我楼外的蒹葭，也希望有一天成为我旁晚的月亮</p><p>“等黑色晕染开变成灰白你我再一同隐于熹微”</p><p>现实还没有板上钉钉不能转圜，也希望我们千万，不要轻飘飘的走散。</p><p>如果人只听从身体的荷尔蒙，那何必进化出发达的大脑和丰富的情感呢。</p><p>经此一刹也觉光阴轻慢</p><p>Pirates and such.世人皆幻影</p><p>我写了几行字<br>爱要藏在哪里才合适<br>你又是否一看便能知</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 摘抄 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>添加天气组件</title>
+      <link href="/2022/05/09/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E5%A4%A9%E6%B0%94/"/>
+      <url>/2022/05/09/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/%E5%A4%A9%E6%B0%94/</url>
+      
+        <content type="html"><![CDATA[<p>今天来整天气组件</p><span id="more"></span><pre><code>基于hexo和butterfly主题的天气组件</code></pre><p>今天来整天气组件，受<a helf="https://blog.csdn.net/weixin_50915462/article/details/120050294?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165208729916782350990369%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165208729916782350990369&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-2-120050294-null-null.142^v9^control,157^v4^new_style&utm_term=butterfly%E5%B0%8F%E9%83%A8%E4%BB%B6&spm=1018.2226.3001.4187">孙老师</a>启发然后会弄了。</p><h2 id="1-申请天气组件账号"><a href="#1-申请天气组件账号" class="headerlink" title="1.申请天气组件账号"></a>1.申请天气组件账号</h2><p>推荐<span style="color:skyblue">和风天气</span>，<a href="https://id.qweather.com/#/register?redirect=https%3A%2F%2Fconsole.qweather.com" target="_blank">点此注册</a></p><h2 id="2-创建组件"><a href="#2-创建组件" class="headerlink" title="2.创建组件"></a>2.创建组件</h2><p>创建一个自己喜欢的组件外观，<a href="https://widget.qweather.com/create-simple">创建插件</a>然后点击生成代码，一会用</p><h2 id="3-添加配置文件"><a href="#3-添加配置文件" class="headerlink" title="3.添加配置文件"></a>3.添加配置文件</h2><p>在blog\themes\butterfly\layout\includes\headers目录下的nav.pug文件中添加以下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure><p>没改过的话应该是这样子的,插入在第四行</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">nav#nav</span><br><span class="line">  span#blog_name</span><br><span class="line">    a#site-name(href=url_for(&#x27;/&#x27;)) #[=config.title]</span><br><span class="line">    &lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;</span><br><span class="line">  #menus</span><br><span class="line">    if (theme.algolia_search.enable || theme.local_search.enable)</span><br><span class="line">      #search-button</span><br><span class="line">        a.site-page.social-icon.search</span><br><span class="line">          i.fas.fa-search.fa-fw</span><br><span class="line">          span=&#x27; &#x27;+_p(&#x27;search.title&#x27;)</span><br><span class="line">    !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br><span class="line"></span><br><span class="line">    #toggle-menu</span><br><span class="line">      a.site-page</span><br><span class="line">        i.fas.fa-bars.fa-fw</span><br></pre></td></tr></table></figure><h2 id="4-添加weather-js"><a href="#4-添加weather-js" class="headerlink" title="4.添加weather.js"></a>4.添加weather.js</h2><p>将刚才生成的代码复制到这个文件里，在key的字段前面加两个位置的字段,具体数值后续调试</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;left&quot;: &quot;100&quot;,</span><br><span class="line">&quot;top&quot;: &quot;8&quot;,</span><br></pre></td></tr></table></figure><pre><code>记得把开头的&lt;div&gt;语句和开头结尾的&lt;script&gt;都删掉</code></pre><h2 id="5-主题配置文件里引入"><a href="#5-主题配置文件里引入" class="headerlink" title="5.主题配置文件里引入"></a>5.主题配置文件里引入</h2><p>在配置文件_config.butterfly的inject属性中bottom:里引入代码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- &lt;script src=&quot;https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0&quot;&gt;&lt;/script&gt;</span><br><span class="line">- &lt;script async src=&quot;/js/weather.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="6-之后调试一下就能使用了，调试left和top属性"><a href="#6-之后调试一下就能使用了，调试left和top属性" class="headerlink" title="6.之后调试一下就能使用了，调试left和top属性"></a>6.之后调试一下就能使用了，调试left和top属性</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 折腾主题的日子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 搞主题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>母亲节</title>
+      <link href="/2022/05/08/%E7%94%9F%E6%B4%BB/motherday/"/>
+      <url>/2022/05/08/%E7%94%9F%E6%B4%BB/motherday/</url>
+      
+        <content type="html"><![CDATA[<p>母亲节快乐！</p><span id="more"></span><h3 id="小时候最想做的事就是快快长大-而大长后最想做的事情是希望妈妈慢点变老"><a href="#小时候最想做的事就是快快长大-而大长后最想做的事情是希望妈妈慢点变老" class="headerlink" title="小时候最想做的事就是快快长大 而大长后最想做的事情是希望妈妈慢点变老"></a>小时候最想做的事就是快快长大 而大长后最想做的事情是希望妈妈慢点变老</h3><h3 id="爱妈妈这件事-不是一年一次-而是每分每秒"><a href="#爱妈妈这件事-不是一年一次-而是每分每秒" class="headerlink" title="爱妈妈这件事 不是一年一次 而是每分每秒"></a>爱妈妈这件事 不是一年一次 而是每分每秒</h3><h3 id="希望妈妈健康快乐幸福"><a href="#希望妈妈健康快乐幸福" class="headerlink" title="希望妈妈健康快乐幸福"></a>希望妈妈健康快乐幸福</h3><h2 id="也祝天下所有的妈妈都身体健康-平安幸福-开开心心"><a href="#也祝天下所有的妈妈都身体健康-平安幸福-开开心心" class="headerlink" title="也祝天下所有的妈妈都身体健康 平安幸福 开开心心"></a>也祝天下所有的妈妈都身体健康 平安幸福 开开心心</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>背景图片太多的改进</title>
+      <link href="/2022/04/18/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/a/"/>
+      <url>/2022/04/18/%E6%8A%98%E8%85%BE%E4%B8%BB%E9%A2%98%E7%9A%84%E6%97%A5%E5%AD%90/a/</url>
+      
+        <content type="html"><![CDATA[<p>这是摘要</p><span id="more"></span><p>配置文件里面图片放太多了，今天来整理一下，找到的大佬的教程☞☞<a href="https://blog.dearxuan.com/2021/11/29/volantis%E5%A4%9A%E8%83%8C%E6%99%AF%E5%9B%BE%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/" target="_blank"> volantis多背景图的优化方案 </a><br>好用<br>就是有时候图床里面的有png也有jpg就会有点难搞，大佬评论区有对应的改进，但是我直接把png全都换成jpg了诶嘿，用的这个网站☞☞<a href="https://convertio.co/zh/" target="_blank">文件转换器</a><br>好用<br>诶嘿</p><p>&#x3D;&#x3D;&#x3D;&#x3D;4.26的更新&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br>因为volantis用不来就换回butterfly了，乌乌，有生之年要用一次volantis，因为布局真的好看，hhh<br>有时间再弄</p><p>&#x3D;&#x3D;&#x3D;&#x3D;10.20的更新&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p><p>换回了新版的volantis，真不错</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 折腾主题的日子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 搞主题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>rice</title>
+      <link href="/2022/04/05/%E7%94%9F%E6%B4%BB/rice/"/>
+      <url>/2022/04/05/%E7%94%9F%E6%B4%BB/rice/</url>
+      
+        <content type="html"><![CDATA[<p>昨天半夜做的奥利奥大福</p><span id="more"></span><p>昨天半夜做的奥利奥大福（<del>米饭和草莓奥利奥</del>）<br><img src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204052156287.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204052156287.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/><br><img src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204052156288.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204052156288.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/></p><h2 id="这是被嫌弃的原料碗，别点开，吼吼吼"><a href="#这是被嫌弃的原料碗，别点开，吼吼吼" class="headerlink" title="这是被嫌弃的原料碗，别点开，吼吼吼"></a>这是被嫌弃的原料碗，别点开，吼吼吼</h2><img src="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204052156289.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204052156289.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>picgo</title>
+      <link href="/2022/04/03/%E6%9D%82%E8%B0%88/picgo/"/>
+      <url>/2022/04/03/%E6%9D%82%E8%B0%88/picgo/</url>
+      
+        <content type="html"><![CDATA[<p>图床</p><span id="more"></span><h1 id="乌乌"><a href="#乌乌" class="headerlink" title="乌乌"></a>乌乌</h1><p><a href="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204041922810.png">https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/202204041922810.png</a><br>很简单，嗯，但是总说我服务端出错，requesterror<br>vpn换了，之后试了vpn关掉，然后还有用cdn加速，是这个error</p><hr><p>2022-04-04更新—-<br><a href="https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/picgo%E4%B8%8A%E4%BC%A0%E4%B8%8D%E4%B8%8A%E5%8E%BB%E5%95%8A.png">https://cdn.jsdelivr.net/gh/FishFishh/PicGoDemo/img/picgo上传不上去啊.png</a><br>修好啦，充电器帮我弄了一下镜像就能传了！</p><hr><h3>后来的我已经不用picgo了，直接手动传git（</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 报错 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>play</title>
+      <link href="/2022/04/03/%E7%94%9F%E6%B4%BB/play/"/>
+      <url>/2022/04/03/%E7%94%9F%E6%B4%BB/play/</url>
+      
+        <content type="html"><![CDATA[<p>健康的有氧运动</p><span id="more"></span><h1 id="健康的有氧运动"><a href="#健康的有氧运动" class="headerlink" title="健康的有氧运动"></a>健康的有氧运动</h1><p>今天和工作室他们三个一起打了羽毛球，都好强，潘姐姐打的最厉害，啥球都能接住，我和他在一边时候都不用我接球，<del>摆烂</del><br>平时运动运动也是不错！嘿嘿嘿。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> life </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我是菜狗</title>
+      <link href="/2022/03/26/%E6%9D%82%E8%B0%88/%E6%88%91%E6%98%AF%E8%8F%9C%E7%8B%97/"/>
+      <url>/2022/03/26/%E6%9D%82%E8%B0%88/%E6%88%91%E6%98%AF%E8%8F%9C%E7%8B%97/</url>
+      
+        <content type="html"><![CDATA[<p>自述</p><span id="more"></span><h2 id="我"><a href="#我" class="headerlink" title="我"></a>我</h2><h2 id="是"><a href="#是" class="headerlink" title="是"></a>是</h2><h2 id="菜"><a href="#菜" class="headerlink" title="菜"></a>菜</h2><h2 id="狗"><a href="#狗" class="headerlink" title="狗"></a>狗</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 乱七八糟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>图标显示问题大讨论</title>
+      <link href="/2022/03/26/%E6%9D%82%E8%B0%88/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/"/>
+      <url>/2022/03/26/%E6%9D%82%E8%B0%88/%E5%9B%BE%E6%A0%87%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E5%A4%A7%E8%AE%A8%E8%AE%BA/</url>
+      
+        <content type="html"><![CDATA[<p>显示不出来的问题</p><span id="more"></span><h2 id="https-fontawesome-com-图标的网站，记得选老版本的5-15-4"><a href="#https-fontawesome-com-图标的网站，记得选老版本的5-15-4" class="headerlink" title="https://fontawesome.com/ 图标的网站，记得选老版本的5.15.4"></a><a href="https://fontawesome.com/">https://fontawesome.com/</a> 图标的网站，记得选老版本的5.15.4</h2><p>可恶我弄了好久，只能选fab和fas开头的图标，而且那个“-”有三级的还不行，只有两级的能用，要么其他就是显示不出来，乌乌</p><h1 id="能显示的（举个栗子）fab-fa-github"><a href="#能显示的（举个栗子）fab-fa-github" class="headerlink" title="能显示的（举个栗子）fab fa-github"></a>能显示的（举个栗子）fab fa-github</h1><h1 id="不能显示的-fas-fa-tv-retro-far-fa-tv-retro"><a href="#不能显示的-fas-fa-tv-retro-far-fa-tv-retro" class="headerlink" title="不能显示的 fas fa-tv-retro far fa-tv-retro"></a>不能显示的 fas fa-tv-retro far fa-tv-retro</h1><p>是这个主题的问题吗（思索）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 报错 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>helloworld</title>
+      <link href="/2022/03/25/%E6%9D%82%E8%B0%88/helloworld/"/>
+      <url>/2022/03/25/%E6%9D%82%E8%B0%88/helloworld/</url>
+      
+        <content type="html"><![CDATA[<p>一些操作的代码</p><span id="more"></span><p>This is my first post.<br>This is write by <a href="https://hexo.io/">Hexo</a>!</p><h2 id="Fish的第一个博客"><a href="#Fish的第一个博客" class="headerlink" title="Fish的第一个博客"></a>Fish的第一个博客</h2><h3 id="下面是hexo一些操作操作，留着留着"><a href="#下面是hexo一些操作操作，留着留着" class="headerlink" title="下面是hexo一些操作操作，留着留着"></a>下面是hexo一些操作操作，留着留着</h3><p>创建一个标签页,添加type: “tags”</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure><p>再创建一个,添加type: categories</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure><p>创建一个友链,添加type: link</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page <span class="built_in">link</span></span><br></pre></td></tr></table></figure><p>Create a new post</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>创建一个子页面</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n page xxxxx</span><br></pre></td></tr></table></figure><p>copyright_author: fish<br>copyright_author_href: <a href="https://github.com/FishFishh">https://github.com/FishFishh</a><br>copyright_url: “helloworld.md”<br>copyright_info: 此文章版权归原作者所有，如有转载，请註明来自原作者</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 乱七八糟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>集合の总结_(:з」∠)</title>
+      <link href="/2021/11/04/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/"/>
+      <url>/2021/11/04/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-%E9%9B%86%E5%90%88%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<p>集合の总结_(:з」∠)</p><span id="more"></span><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><pre><code>1.底层由数组实现2.元素有序且可以重复3.可以动态增长，以满足应用程序的需求4.元素值可以为null</code></pre><h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><pre><code>1.元素无序并且不可以重复2.只允许一个null元素</code></pre><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><pre><code>1.键不能重复2.允许使用null值和null键3.HashMap中的Entry对象是无序排列的</code></pre><h2 id="Iterator（迭代器"><a href="#Iterator（迭代器" class="headerlink" title="Iterator（迭代器)"></a>Iterator（迭代器)</h2><h3 id="Iterator接口以统一的方式对各种集合元素进行遍历"><a href="#Iterator接口以统一的方式对各种集合元素进行遍历" class="headerlink" title="Iterator接口以统一的方式对各种集合元素进行遍历"></a>Iterator接口以统一的方式对各种集合元素进行遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; it=set.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">    System.out.print(it.next()+&quot; &quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="HashCode"><a href="#HashCode" class="headerlink" title="HashCode()"></a>HashCode()</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int hashCode() &#123;</span><br><span class="line">    final int prime = 31;</span><br><span class="line">    int result = 1;</span><br><span class="line">    result = prime * result + age;</span><br><span class="line">    result = prime * result + ((name == null) ? 0 : name.hashCode());</span><br><span class="line">    result = prime * result + ((species = = null) ? 0 : species.hashCode());</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj) &#123;</span><br><span class="line">    if (this == obj)</span><br><span class="line">        return true;</span><br><span class="line">    if(obj.getClass()==Cat.class)&#123;</span><br><span class="line">        Cat cat=(Cat)obj;</span><br><span class="line">    return cat.getName().equals(name)&amp;&amp;(cat.getAge()==age)&amp;&amp;cat.getSpecies().equals(species);</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><img src="https://img-blog.csdnimg.cn/0577d2ca7e8544c4bf097d9b0e508ef7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6bG85q-T5bG_5b6h,size_20,color_FFFFFF,t_70,g_se,x_16" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/0577d2ca7e8544c4bf097d9b0e508ef7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6bG85q-T5bG_5b6h,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">]]></content>
+      
+      
+      <categories>
+          
+          <category> 鱼の笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HashMap</title>
+      <link href="/2021/11/03/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-HashMap/"/>
+      <url>/2021/11/03/%E9%B1%BC%E3%81%AE%E7%AC%94%E8%AE%B0/CSDN-HashMap/</url>
+      
+        <content type="html"><![CDATA[<p>HashMap相关</p><span id="more"></span><h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><p>Map中的数据是以键值对( key-value )的形式存储的。<br>key-value以Entry类型的对象实例存在。<br>可以通过key值快速地查找value。<br>一个映射不能包含重复的键。也就是说key的值必须为1，一个value可以对应多个key的值。</p><h1 id="HashMap-1"><a href="#HashMap-1" class="headerlink" title="HashMap"></a>HashMap</h1><ol><li><pre><code>基于哈希表的Map接口的实现。是Map的实现类。</code></pre></li><li><pre><code>允许使用null值和null键。</code></pre></li><li><pre><code>key值不允许重复。</code></pre></li><li><pre><code>HashMap中的Entry对象是无序排列的。</code></pre></li></ol><h2 id="例题1：使用HashMap编写一个字典"><a href="#例题1：使用HashMap编写一个字典" class="headerlink" title="例题1：使用HashMap编写一个字典"></a>例题1：使用HashMap编写一个字典</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class Map01例题 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map&lt;String,String&gt; animal=new HashMap&lt;String,String&gt;();</span><br><span class="line">        System.out.println(&quot;请输入三组单词对应的注释，并存放到HashMap中&quot;);</span><br><span class="line">        Scanner console = new Scanner(System.in);</span><br><span class="line">        //添加数据</span><br><span class="line">        int i = 0;</span><br><span class="line">        while(i&lt;3)&#123;</span><br><span class="line">            System.out.println(&quot;请输入key值：&quot;);</span><br><span class="line">            String key = console.next();</span><br><span class="line">            System.out.println(&quot;请输入value值：&quot;);</span><br><span class="line">            String value = console.next();</span><br><span class="line">            animal.put(key,value);</span><br><span class="line">             i++;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;=======&quot;);</span><br><span class="line">    //打印输出value的值（直接使用迭代器）</span><br><span class="line">    System.out.println(&quot;使用迭代器输出所有value的值：&quot;);</span><br><span class="line">    Iterator&lt;String&gt; it= animal.values().iterator();</span><br><span class="line">    while(it.hasNext())&#123;</span><br><span class="line">        System.out.print(it.next()+&quot; &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.println(&quot;=======&quot;);</span><br><span class="line">    System.out.println(&quot;通过entrySet方法得到Key-Value：&quot;);</span><br><span class="line">    Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet=animal.entrySet();</span><br><span class="line">    for(Map.Entry&lt;String,String&gt; entry:entrySet)&#123;</span><br><span class="line">        System.out.print(entry.getKey()+&quot;-&quot;);</span><br><span class="line">        System.out.println(entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="例题2：对字典进行查询"><a href="#例题2：对字典进行查询" class="headerlink" title="例题2：对字典进行查询"></a>例题2：对字典进行查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;请输入要查找的（key）&quot;);</span><br><span class="line">//使用keySet方法</span><br><span class="line">String strSearch=console.next();</span><br><span class="line"></span><br><span class="line">//1.取得keySet</span><br><span class="line">Set&lt;String&gt; keySet=animal.keySet();</span><br><span class="line"></span><br><span class="line">//2.遍历KeySet</span><br><span class="line">for(String key:keySet)&#123;</span><br><span class="line">    if(strSearch.equals(key))&#123;</span><br><span class="line">        System.out.println(&quot;找到了!键值对的值为:&quot;+key+&quot;-&quot;+animal.get(key));</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 鱼の笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Code Highlight Style test</title>
+      <link href="/2019/07/25/code-highlight/"/>
+      <url>/2019/07/25/code-highlight/</url>
+      
+        <content type="html"><![CDATA[<p>Make sure all the code blocks highlighted correctly. All the code samples are come from the demo of <a href="https://highlightjs.org/">https://highlightjs.org</a></p><span id="more"></span><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#x27;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span><br></pre></td></tr></table></figure><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">enum</span> <span class="title class_">State</span> &#123;</span><br><span class="line">    Start,</span><br><span class="line">    Transient,</span><br><span class="line">    Closed,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">From</span>&lt;&amp;<span class="symbol">&#x27;a</span> <span class="type">str</span>&gt; <span class="keyword">for</span> <span class="title class_">State</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">from</span>(s: &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span>) <span class="punctuation">-&gt;</span> <span class="keyword">Self</span> &#123;</span><br><span class="line">        <span class="keyword">match</span> s &#123;</span><br><span class="line">            <span class="string">&quot;start&quot;</span> =&gt; State::Start,</span><br><span class="line">            <span class="string">&quot;closed&quot;</span> =&gt; State::Closed,</span><br><span class="line">            _ =&gt; <span class="built_in">unreachable!</span>(),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;apples&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;count&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">12000</span><span class="punctuation">,</span> <span class="number">20000</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;...&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;sensitive&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;oranges&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;count&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">17500</span><span class="punctuation">,</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;...&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;sensitive&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@requires_authorization</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">somefunc</span>(<span class="params">param1=<span class="string">&#x27;&#x27;</span>, param2=<span class="number">0</span></span>):</span><br><span class="line">    <span class="string">r&#x27;&#x27;&#x27;A docstring&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> param1 &gt; param2: <span class="comment"># interesting</span></span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;Gre\&#x27;ater&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> (param2 - param1 + <span class="number">1</span> + <span class="number">0b10l</span>) <span class="keyword">or</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SomeClass</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = <span class="string">&#x27;&#x27;&#x27;interpreter</span></span><br><span class="line"><span class="string"><span class="meta">... </span>prompt&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">width</span>: <span class="number">500px</span>;&#125;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;application/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">$init</span>(<span class="params"></span>) &#123;<span class="keyword">return</span> <span class="literal">true</span>;&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">checked</span> <span class="attr">class</span>=<span class="string">&quot;title&quot;</span> <span class="attr">id</span>=<span class="string">&#x27;title&#x27;</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- here goes the rest of the page --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">$initHighlight</span>(<span class="params">block, cls</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (cls.<span class="title function_">search</span>(<span class="regexp">/\bno\-highlight\b/</span>) != -<span class="number">1</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">process</span>(block, <span class="literal">true</span>, <span class="number">0x0F</span>) +</span><br><span class="line">             <span class="string">` class=&quot;<span class="subst">$&#123;cls&#125;</span>&quot;`</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="comment">/* handle exception */</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span> / <span class="number">2</span>; i &lt; classes.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">checkCondition</span>(classes[i]) === <span class="literal">undefined</span>)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;undefined&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">web-component</span>&gt;</span>&#123;block&#125;<span class="tag">&lt;/<span class="name">web-component</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> $initHighlight;</span><br></pre></td></tr></table></figure><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* An annoying &quot;Hello World&quot; example */</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> i = <span class="number">0</span>; i &lt; <span class="number">0xFFFF</span>; i++)</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, World!&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  <span class="type">char</span> c = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">  unordered_map &lt;string, vector&lt;string&gt; &gt; m;</span><br><span class="line">  m[<span class="string">&quot;key&quot;</span>] = <span class="string">&quot;\\\\&quot;</span>; <span class="comment">// this is an error</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">-2e3</span> + <span class="number">12l</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &quot;topic&quot; (</span><br><span class="line">    &quot;id&quot; serial <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    &quot;forum_id&quot; <span class="type">integer</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    &quot;subject&quot; <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &quot;topic&quot;</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> forum_id <span class="keyword">FOREIGN</span> KEY (&quot;forum_id&quot;)</span><br><span class="line"><span class="keyword">REFERENCES</span> &quot;forum&quot; (&quot;id&quot;);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Initials</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> &quot;topic&quot; (&quot;forum_id&quot;, &quot;subject&quot;)</span><br><span class="line"><span class="keyword">values</span> (<span class="number">2</span>, <span class="string">&#x27;D&#x27;&#x27;artagnian&#x27;</span>);</span><br></pre></td></tr></table></figure><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;Dependency.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">WorldDataSource</span></span></span><br><span class="line"><span class="keyword">@optional</span></span><br><span class="line">- (<span class="built_in">NSString</span>*)worldName;</span><br><span class="line"><span class="keyword">@required</span></span><br><span class="line">- (<span class="type">BOOL</span>)allowsToLive;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *title;</span><br><span class="line">- (<span class="keyword">IBAction</span>) show;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> John Smith &lt;john.smith@example.com&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">package</span> l2f.gameserver.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">L2Char</span> <span class="keyword">extends</span> <span class="title class_">L2Object</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Short</span> <span class="variable">ERROR</span> <span class="operator">=</span> <span class="number">0x0001</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">moveTo</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> &#123;</span><br><span class="line">    _ai = <span class="literal">null</span>;</span><br><span class="line">    log(<span class="string">&quot;Should not be called&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">1</span> &gt; <span class="number">5</span>) &#123; <span class="comment">// wtf!?</span></span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"></span><br><span class="line"><span class="keyword">@objc</span> <span class="keyword">class</span> <span class="title class_">Person</span>: <span class="title class_">Entity</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span>!</span><br><span class="line">  <span class="keyword">var</span> age:  <span class="type">Int</span>!</span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>, <span class="params">age</span>: <span class="type">Int</span>) &#123;</span><br><span class="line">    <span class="comment">/* <span class="comment">/* ... */</span> */</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Return a descriptive string for this person</span></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">description</span>(<span class="params">offset</span>: <span class="type">Int</span> <span class="operator">=</span> <span class="number">0</span>) -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;<span class="subst">\(name)</span> is <span class="subst">\(age <span class="operator">+</span> offset)</span> years old&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Chunkfive; <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;Chunkfive.otf&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span>, <span class="selector-class">.usertext</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#F0F0F0</span>; <span class="attribute">background</span>: <span class="number">#600</span>;</span><br><span class="line">  <span class="attribute">font-family</span>: Chunkfive, sans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@import</span> url(print.css);</span><br><span class="line"><span class="keyword">@media</span> print &#123;</span><br><span class="line">  <span class="selector-tag">a</span><span class="selector-attr">[href^=http]</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="built_in">attr</span>(href)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The Greeter class</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Greeter</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">name</span>)</span><br><span class="line">    <span class="variable">@name</span> = name.capitalize</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">salute</span></span><br><span class="line">    puts <span class="string">&quot;Hello <span class="subst">#&#123;<span class="variable">@name</span>&#125;</span>!&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">g = <span class="title class_">Greeter</span>.new(<span class="string">&quot;world&quot;</span>)</span><br><span class="line">g.salute</span><br></pre></td></tr></table></figure><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Makefile</span></span><br><span class="line"></span><br><span class="line">BUILDDIR      = _build</span><br><span class="line">EXTRAS       ?= <span class="variable">$(BUILDDIR)</span>/extras</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>: main clean</span></span><br><span class="line"></span><br><span class="line"><span class="section">main:</span></span><br><span class="line">@echo <span class="string">&quot;Building main facility...&quot;</span></span><br><span class="line">build_main <span class="variable">$(BUILDDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">rm -rf <span class="variable">$(BUILDDIR)</span>/*</span><br></pre></td></tr></table></figure><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">float64</span>)</span><br><span class="line">    ch &lt;- <span class="number">1.0e10</span>    <span class="comment">// magic number</span></span><br><span class="line">    x, ok := &lt;- ch</span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(<span class="string">`exitting now\`</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="built_in">println</span>(<span class="built_in">len</span>(<span class="string">&quot;hello world!&quot;</span>))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###### CONFIG</span></span><br><span class="line">ACCEPTED_HOSTS=<span class="string">&quot;/root/.hag_accepted.conf&quot;</span></span><br><span class="line">BE_VERBOSE=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$UID</span>&quot;</span> -ne 0 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Superuser rights required&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 2</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">genApacheConf</span></span>()&#123;</span><br><span class="line">  <span class="built_in">echo</span> -e <span class="string">&quot;# Host <span class="variable">$&#123;HOME_DIR&#125;</span><span class="variable">$1</span>/<span class="variable">$2</span> :&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; boilerplate</span></span><br><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;some_name&quot;</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">&quot;Author&quot;</span>]</span><br><span class="line"><span class="attr">description</span> = <span class="string">&quot;This is \</span></span><br><span class="line"><span class="string">a description&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[lib]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="variable">$&#123;NAME&#125;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">True</span></span><br><span class="line"><span class="attr">auto</span> = <span class="literal">no</span></span><br><span class="line"><span class="attr">counter</span> = <span class="number">1_000</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown Style test</title>
+      <link href="/2018/07/24/markdown/"/>
+      <url>/2018/07/24/markdown/</url>
+      
+        <content type="html"><![CDATA[<p>This post is originated from <a href="https://gist.github.com/apackeer/4159268">here</a> and is used for testing markdown style. This post contains nearly every markdown usage. Make sure all the markdown elements below show up correctly.</p><span id="more"></span><p>tags:</p><ul><li>Foo</li><li>Bar</li></ul><hr><h2 id="Headers"><a href="#Headers" class="headerlink" title="Headers"></a>Headers</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># H1</span></span><br><span class="line"><span class="section">## H2</span></span><br><span class="line"><span class="section">### H3</span></span><br><span class="line"><span class="section">#### H4</span></span><br><span class="line"><span class="section">##### H5</span></span><br><span class="line"><span class="section">###### H6</span></span><br><span class="line"></span><br><span class="line">Alternatively, for H1 and H2, an underline-ish style:</span><br><span class="line"></span><br><span class="line"><span class="section">Alt-H1</span></span><br><span class="line"><span class="section">======</span></span><br><span class="line"></span><br><span class="line"><span class="section">Alt-H2</span></span><br><span class="line"><span class="section">------</span></span><br></pre></td></tr></table></figure><h1 id="H1"><a href="#H1" class="headerlink" title="H1"></a>H1</h1><h2 id="H2"><a href="#H2" class="headerlink" title="H2"></a>H2</h2><h3 id="H3"><a href="#H3" class="headerlink" title="H3"></a>H3</h3><h4 id="H4"><a href="#H4" class="headerlink" title="H4"></a>H4</h4><h5 id="H5"><a href="#H5" class="headerlink" title="H5"></a>H5</h5><h6 id="H6"><a href="#H6" class="headerlink" title="H6"></a>H6</h6><p>Alternatively, for H1 and H2, an underline-ish style:</p><h1 id="Alt-H1"><a href="#Alt-H1" class="headerlink" title="Alt-H1"></a>Alt-H1</h1><h2 id="Alt-H2"><a href="#Alt-H2" class="headerlink" title="Alt-H2"></a>Alt-H2</h2><h2 id="Emphasis"><a href="#Emphasis" class="headerlink" title="Emphasis"></a>Emphasis</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Emphasis, aka italics, with <span class="emphasis">*asterisks*</span> or <span class="emphasis">_underscores_</span>.</span><br><span class="line"></span><br><span class="line">Strong emphasis, aka bold, with <span class="strong">**asterisks**</span> or <span class="strong">__underscores__</span>.</span><br><span class="line"></span><br><span class="line">Combined emphasis with <span class="strong">**asterisks and <span class="emphasis">_underscores_</span>**</span>.</span><br><span class="line"></span><br><span class="line">Strikethrough uses two tildes. ~~Scratch this.~~</span><br></pre></td></tr></table></figure><p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p><p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p><p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p><p>Strikethrough uses two tildes. <del>Scratch this.</del></p><h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> First ordered list item</span><br><span class="line"><span class="bullet">2.</span> Another item</span><br><span class="line"><span class="bullet">  *</span> Unordered sub-list.</span><br><span class="line"><span class="bullet">1.</span> Actual numbers don&#x27;t matter, just that it&#x27;s a number</span><br><span class="line"><span class="bullet">  1.</span> Ordered sub-list</span><br><span class="line"><span class="bullet">4.</span> And another item.</span><br><span class="line"></span><br><span class="line">   You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we&#x27;ll use three here to also align the raw Markdown).</span><br><span class="line"></span><br><span class="line">   To have a line break without a paragraph, you will need to use two trailing spaces.  </span><br><span class="line">   Note that this line is separate, but within the same paragraph.  </span><br><span class="line">   (This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</span><br><span class="line"></span><br><span class="line"><span class="bullet">*</span> Unordered list can use asterisks</span><br><span class="line"><span class="bullet">-</span> Or minuses</span><br><span class="line"><span class="bullet">+</span> Or pluses</span><br><span class="line"><span class="bullet">-</span> Paragraph In unordered list</span><br><span class="line"></span><br><span class="line">  For example like this.</span><br><span class="line"></span><br><span class="line">Common Paragraph with some text.</span><br><span class="line">And more text.</span><br></pre></td></tr></table></figure><ol><li>First ordered list item</li><li>Another item</li></ol><ul><li>Unordered sub-list.</li></ul><ol><li><p>Actual numbers don’t matter, just that it’s a number</p></li><li><p>Ordered sub-list</p></li><li><p>And another item.</p><p>You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we’ll use three here to also align the raw Markdown).</p><p>To have a line break without a paragraph, you will need to use two trailing spaces.<br>Note that this line is separate, but within the same paragraph.<br>(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p></li></ol><ul><li>Unordered list can use asterisks</li></ul><ul><li>Or minuses</li></ul><ul><li>Or pluses</li></ul><ul><li><p>Paragraph In unordered list</p><p>For example like this.</p></li></ul><p>Common Paragraph with some text.<br>And more text.</p><h2 id="Inline-HTML"><a href="#Inline-HTML" class="headerlink" title="Inline HTML"></a>Inline HTML</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span>To reboot your computer, press <span class="language-xml"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span></span>ctrl<span class="language-xml"><span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span>+<span class="language-xml"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span></span>alt<span class="language-xml"><span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span>+<span class="language-xml"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span></span>del<span class="language-xml"><span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span>.<span class="language-xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>To reboot your computer, press <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>del</kbd>.</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;dt&gt;Definition list&lt;/dt&gt;</span></span><br><span class="line"><span class="code">    &lt;dd&gt;Is something people use sometimes.&lt;/dd&gt;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    &lt;dt&gt;Markdown in HTML&lt;/dt&gt;</span></span><br><span class="line"><span class="code">    &lt;dd&gt;Does *not* work **very** well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;</span></span><br><span class="line"><span class="code">&lt;/dl&gt;</span></span><br></pre></td></tr></table></figure><dl>    <dt>Definition list</dt>    <dd>Is something people use sometimes.</dd><pre><code>&lt;dt&gt;Markdown in HTML&lt;/dt&gt;&lt;dd&gt;Does *not* work **very** well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;</code></pre></dl><h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">I&#x27;m an inline-style link</span>](<span class="link">https://www.google.com</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m an inline-style link with title</span>](<span class="link">https://www.google.com &quot;Google&#x27;s Homepage&quot;</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m a reference-style link</span>][<span class="symbol">Arbitrary case-insensitive reference text</span>]</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m a relative reference to a repository file</span>](<span class="link">../blob/master/LICENSE</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">You can use numbers for reference-style link definitions</span>][<span class="symbol">1</span>]</span><br><span class="line"></span><br><span class="line">Or leave it empty and use the [link text itself]</span><br><span class="line"></span><br><span class="line">Some text to show that the reference links can follow later.</span><br><span class="line"></span><br><span class="line">[<span class="symbol">arbitrary case-insensitive reference text</span>]: <span class="link">https://hexo.io</span></span><br><span class="line">[<span class="symbol">1</span>]: <span class="link">https://hexo.io/docs/</span></span><br><span class="line">[<span class="symbol">link text itself</span>]: <span class="link">https://hexo.io/api/</span></span><br></pre></td></tr></table></figure><p><a href="https://www.google.com/">I’m an inline-style link</a></p><p><a href="https://www.google.com/" title="Google&#39;s Homepage">I’m an inline-style link with title</a></p><p><a href="https://hexo.io/">I’m a reference-style link</a></p><p><a href="../blob/master/LICENSE">I’m a relative reference to a repository file</a></p><p><a href="https://hexo.io/docs/">You can use numbers for reference-style link definitions</a></p><p>Or leave it empty and use the <a href="https://hexo.io/api/">link text itself</a></p><p>Some text to show that the reference links can follow later.</p><h2 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hover to see the title text:</span><br><span class="line"></span><br><span class="line">Inline-style:</span><br><span class="line"></span><br><span class="line">![<span class="string">alt text</span>](<span class="link">https://hexo.io/icon/favicon-196x196.png &quot;Logo Title Text 1&quot;</span>)</span><br><span class="line"></span><br><span class="line">Reference-style:</span><br><span class="line">![<span class="string">alt text</span>][<span class="symbol">logo</span>]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">logo</span>]: <span class="link">https://hexo.io/icon/favicon-196x196.png &quot;Logo Title Text 2&quot;</span></span><br></pre></td></tr></table></figure><p>hover to see the title text:</p><p>Inline-style:</p><p><img src="https://hexo.io/icon/favicon-196x196.png" class="lazyload" data-srcset="https://hexo.io/icon/favicon-196x196.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="alt text" title="Logo Title Text 1"></p><p>Reference-style:<br><img src="https://hexo.io/icon/favicon-196x196.png" class="lazyload" data-srcset="https://hexo.io/icon/favicon-196x196.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="alt text" title="Logo Title Text 2"></p><h2 id="Code-and-Syntax-Highlighting"><a href="#Code-and-Syntax-Highlighting" class="headerlink" title="Code and Syntax Highlighting"></a>Code and Syntax Highlighting</h2><p>Inline <code>code</code> has <code>back-ticks around</code> it.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">&quot;JavaScript syntax highlighting&quot;</span>;</span><br><span class="line"><span class="title function_">alert</span>(s);</span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;Python syntax highlighting&quot;</span></span><br><span class="line"><span class="built_in">print</span> s</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No language indicated, so no syntax highlighting.</span><br><span class="line">But let&#x27;s throw in a &lt;b&gt;tag&lt;/b&gt;.</span><br></pre></td></tr></table></figure><h2 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|                |ASCII                          |HTML                         |</span><br><span class="line">|----------------|-------------------------------|-----------------------------|</span><br><span class="line">|Single backticks|<span class="code">`&#x27;Isn&#x27;t this fun?&#x27;`</span>            |&#x27;Isn&#x27;t this fun?&#x27;            |</span><br><span class="line">|Quotes          |<span class="code">`&quot;Isn&#x27;t this fun?&quot;`</span>            |&quot;Isn&#x27;t this fun?&quot;            |</span><br><span class="line">|Dashes          |<span class="code">`-- is en-dash, --- is em-dash`</span>|-- is en-dash, --- is em-dash|</span><br></pre></td></tr></table></figure><table><thead><tr><th></th><th>ASCII</th><th>HTML</th></tr></thead><tbody><tr><td>Single backticks</td><td><code>&#39;Isn&#39;t this fun?&#39;</code></td><td>‘Isn’t this fun?’</td></tr><tr><td>Quotes</td><td><code>&quot;Isn&#39;t this fun?&quot;</code></td><td>“Isn’t this fun?”</td></tr><tr><td>Dashes</td><td><code>-- is en-dash, --- is em-dash</code></td><td>– is en-dash, — is em-dash</td></tr></tbody></table><p>Colons can be used to align columns.</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| Tables        | Are           | Cool  |</span><br><span class="line">| ------------- |:-------------:| -----:|</span><br><span class="line">| col 3 is      | right-aligned |  |</span><br><span class="line">| col 2 is      | centered      |    |</span><br><span class="line">| zebra stripes | are neat      |   </span><br></pre></td></tr></table></figure><table><thead><tr><th>Tables</th><th align="center">Are</th><th align="right">Cool</th></tr></thead><tbody><tr><td>col 3 is</td><td align="center">right-aligned</td><td align="right"></td></tr><tr><td>col 2 is</td><td align="center">centered</td><td align="right"></td></tr><tr><td>zebra stripes</td><td align="center">are neat</td><td align="right"></td></tr></tbody></table><p>The outer pipes (|) are optional, and you don’t need to make the raw Markdown line up prettily. You can also use inline Markdown.</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Markdown | Less | Pretty</span><br><span class="line">--- | --- | ---</span><br><span class="line"><span class="emphasis">*Still*</span> | <span class="code">`renders`</span> | <span class="strong">**nicely**</span></span><br><span class="line">1 | 2 | 3</span><br></pre></td></tr></table></figure><table><thead><tr><th>Markdown</th><th>Less</th><th>Pretty</th></tr></thead><tbody><tr><td><em>Still</em></td><td><code>renders</code></td><td><strong>nicely</strong></td></tr><tr><td>1</td><td>2</td><td>3</td></tr></tbody></table><blockquote><p>You can find more information about <strong>LaTeX</strong> mathematical expressions <a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">here</a>.</p></blockquote><h2 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h2><blockquote><p>Blockquotes are very handy in email to emulate reply text.<br>This line is part of the same quote.</p></blockquote><p>Quote break.</p><blockquote><p>This is a very long line that will still be quoted properly when it wraps. Oh boy let’s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p></blockquote><h2 id="Horizontal-Rule"><a href="#Horizontal-Rule" class="headerlink" title="Horizontal Rule"></a>Horizontal Rule</h2><p>Three or more…</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"></span><br><span class="line">Hyphens</span><br><span class="line"></span><br><span class="line"><span class="strong">**<span class="emphasis">*</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">Asterisks</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">___</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">Underscores</span></span></span><br></pre></td></tr></table></figure><hr><p>Hyphens</p><hr><p>Asterisks</p><hr><p>Underscores</p><h2 id="Line-Breaks"><a href="#Line-Breaks" class="headerlink" title="Line Breaks"></a>Line Breaks</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Here&#x27;s a line for us to start with.</span><br><span class="line"></span><br><span class="line">This line is separated from the one above by two newlines, so it will be a <span class="emphasis">*separate paragraph*</span>.</span><br><span class="line"></span><br><span class="line">This line is also a separate paragraph, but...</span><br><span class="line">This line is only separated by a single newline, so it&#x27;s a separate line in the <span class="emphasis">*same paragraph*</span>.</span><br></pre></td></tr></table></figure><p>Here’s a line for us to start with.</p><p>This line is separated from the one above by two newlines, so it will be a <em>separate paragraph</em>.</p><p>This line is also a separate paragraph, but…<br>This line is only separated by a single newline, so it’s a separate line in the <em>same paragraph</em>.</p><hr><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">This is a regular paragraph.</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;tr&gt;</span></span><br><span class="line"><span class="code">        &lt;td&gt;Foo&lt;/td&gt;</span></span><br><span class="line"><span class="code">    &lt;/tr&gt;</span></span><br><span class="line"><span class="code">&lt;/table&gt;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">This is another regular paragraph.</span><br></pre></td></tr></table></figure><p>This is a regular paragraph.</p><table>    <tr>        <td>Foo</td>    </tr></table><p>This is another regular paragraph.</p><h2 id="Youtube-videos"><a href="#Youtube-videos" class="headerlink" title="Youtube videos"></a>Youtube videos</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.youtube.com/watch?feature=player_embedded&amp;v=ARted4RniaU</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span><span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;https://img.youtube.com/vi/ARted4RniaU/0.jpg&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="attr">alt</span>=<span class="string">&quot;IMAGE ALT TEXT HERE&quot;</span> <span class="attr">width</span>=<span class="string">&quot;240&quot;</span> <span class="attr">height</span>=<span class="string">&quot;180&quot;</span> <span class="attr">border</span>=<span class="string">&quot;10&quot;</span> /&gt;</span></span><span class="language-xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">Pure markdown version:</span><br><span class="line"></span><br><span class="line">[<span class="string">![IMAGE ALT TEXT HERE</span>](<span class="link">https://img.youtube.com/vi/ARted4RniaU/0.jpg</span>)](<span class="link">https://www.youtube.com/watch?v=ARted4RniaU</span>)</span><br></pre></td></tr></table></figure><p><a href="https://www.youtube.com/watch?feature=player_embedded&v=ARted4RniaU" target="_blank"><img src="https://img.youtube.com/vi/ARted4RniaU/0.jpg"alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a></p><p>Pure markdown version:</p><p><a href="https://www.youtube.com/watch?v=ARted4RniaU"><img src="https://img.youtube.com/vi/ARted4RniaU/0.jpg" class="lazyload" data-srcset="https://img.youtube.com/vi/ARted4RniaU/0.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="IMAGE ALT TEXT HERE"></a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Images</title>
+      <link href="/2013/12/26/images/"/>
+      <url>/2013/12/26/images/</url>
+      
+        <content type="html"><![CDATA[<p>This is a image test post.</p><p><img src="https://cdn.jsdelivr.net/gh/hexojs/hexo-theme-unit-test@master/source/assets/wallpaper-2572384.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/hexojs/hexo-theme-unit-test@master/source/assets/wallpaper-2572384.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p><p><img src="https://cdn.jsdelivr.net/gh/hexojs/hexo-theme-unit-test@master/source/assets/wallpaper-2311325.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/hexojs/hexo-theme-unit-test@master/source/assets/wallpaper-2311325.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Caption"></p><p><img src="https://cdn.jsdelivr.net/gh/hexojs/hexo-theme-unit-test@master/source/assets/wallpaper-878514.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/hexojs/hexo-theme-unit-test@master/source/assets/wallpaper-878514.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p><p><img src="https://placehold.it/350x150.jpg" class="lazyload" data-srcset="https://placehold.it/350x150.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Small Picture"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2013/12/25/no-title/"/>
+      <url>/2013/12/25/no-title/</url>
+      
+        <content type="html"><![CDATA[<p>This post doesn’t have a title. Make sure it’s accessible.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Excerpts</title>
+      <link href="/2013/12/25/excerpts/"/>
+      <url>/2013/12/25/excerpts/</url>
+      
+        <content type="html"><![CDATA[<p>The following contents should be invisible in home&#x2F;archive page.</p><span id="more"></span><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget urna vitae velit eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Aliquam eleifend dolor vitae libero pharetra adipiscing. Etiam adipiscing dolor a quam tempor, eu convallis nulla varius. Aliquam sollicitudin risus a porta aliquam. Ut nec velit dolor. Proin eget leo lobortis, aliquam est sed, mollis mauris. Fusce vitae leo pretium massa accumsan condimentum. Fusce malesuada gravida lectus vel vulputate. Donec bibendum porta nibh ut aliquam.</p><p>Sed lorem felis, congue non fringilla eu, aliquam eu eros. Curabitur orci libero, mollis sed semper vitae, adipiscing in lectus. Aenean non egestas odio. Donec sollicitudin nisi quis lorem gravida, in pharetra mauris fringilla. Duis sit amet faucibus dolor, id aliquam neque. In egestas, odio gravida tempor dictum, mauris felis faucibus purus, sit amet commodo lacus diam vitae est. Ut ut quam eget massa semper sodales. Aenean non ipsum cursus, blandit lectus in, ornare odio. Curabitur ultrices porttitor vulputate.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Videos</title>
+      <link href="/2013/12/25/videos/"/>
+      <url>/2013/12/25/videos/</url>
+      
+        <content type="html"><![CDATA[<p>This is a video test post.</p><p><strong>Youtube</strong></p><div class="video-container"><iframe src="https://www.youtube.com/embed/TIbZDRXM-Tg" frameborder="0" loading="lazy" allowfullscreen></iframe></div><p><strong>Vimeo</strong></p><div class="video-container"><iframe src="https://player.vimeo.com/video/82090131" frameborder="0" loading="lazy" allowfullscreen></iframe></div>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Gallery Post</title>
+      <link href="/2013/12/25/gallery-post/"/>
+      <url>/2013/12/25/gallery-post/</url>
+      
+        <content type="html"><![CDATA[<p>This post contains 4 photos:</p><ul><li>Widescreen wallpaper</li><li>Portrait photo</li><li>Dual widescreen wallpaper</li><li>Small photo</li></ul><p>All photos should be displayed properly.</p><p><em>From <a href="http://wallbase.cc/">Wallbase.cc</a></em></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Tag Plugins</title>
+      <link href="/2013/12/25/tag-plugins/"/>
+      <url>/2013/12/25/tag-plugins/</url>
+      
+        <content type="html"><![CDATA[<p>This post is used for testing tag plugins. See <a href="http://zespia.tw/hexo/docs/tag-plugins.html">docs</a> for more info.</p><h2 id="Block-Quote"><a href="#Block-Quote" class="headerlink" title="Block Quote"></a>Block Quote</h2><h3 id="Normal-blockquote"><a href="#Normal-blockquote" class="headerlink" title="Normal blockquote"></a>Normal blockquote</h3><blockquote><p>Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.</p></blockquote><h3 id="Quote-from-a-book"><a href="#Quote-from-a-book" class="headerlink" title="Quote from a book"></a>Quote from a book</h3><blockquote><p>Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.</p><footer><strong>David Levithan</strong><cite>Wide Awake</cite></footer></blockquote><h3 id="Quote-from-Twitter"><a href="#Quote-from-Twitter" class="headerlink" title="Quote from Twitter"></a>Quote from Twitter</h3><blockquote><p>NEW: DevDocs now comes with syntax highlighting. <a href="http://devdocs.io/">http://devdocs.io</a></p><footer><strong>@DevDocs</strong><cite><a href="https://twitter.com/devdocs/status/356095192085962752">twitter.com/devdocs/status/356095192085962752</a></cite></footer></blockquote><h3 id="Quote-from-an-article-on-the-web"><a href="#Quote-from-an-article-on-the-web" class="headerlink" title="Quote from an article on the web"></a>Quote from an article on the web</h3><blockquote><p>Every interaction is both precious and an opportunity to delight.</p><footer><strong>Seth Godin</strong><cite><a href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html">Welcome to Island Marketing</a></cite></footer></blockquote><h2 id="Code-Block"><a href="#Code-Block" class="headerlink" title="Code Block"></a>Code Block</h2><h3 id="Normal-code-block"><a href="#Normal-code-block" class="headerlink" title="Normal code block"></a>Normal code block</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(&#x27;Hello World!&#x27;);</span><br></pre></td></tr></table></figure><h3 id="With-caption"><a href="#With-caption" class="headerlink" title="With caption"></a>With caption</h3><figure class="highlight plaintext"><figcaption><span>Array.map</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.map(callback[, thisArg])</span><br></pre></td></tr></table></figure><h3 id="With-caption-and-URL"><a href="#With-caption-and-URL" class="headerlink" title="With caption and URL"></a>With caption and URL</h3><figure class="highlight plaintext"><figcaption><span>.compact</span><a href="http://underscorejs.org/#compact">Underscore.js</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.compact([0, 1, false, 2, ‘’, 3]);</span><br><span class="line">=&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure><h3 id="With-marked-lines"><a href="#With-marked-lines" class="headerlink" title="With marked lines"></a>With marked lines</h3><p>Line 1,7-8,10 should be marked with different color.</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line marked"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> hostname = <span class="string">&#x27;127.0.0.1&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">1337</span>;</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line marked">  res.<span class="title function_">writeHead</span>(<span class="number">200</span>, &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/plain&#x27;</span> &#125;);</span><br><span class="line marked">  res.<span class="title function_">end</span>(<span class="string">&#x27;Hello World\n&#x27;</span>);</span><br><span class="line">&#125;).<span class="title function_">listen</span>(port, hostname, <span class="function">() =&gt;</span> &#123;</span><br><span class="line marked">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>Note: Theme’s style should support <code>.highlight.line.marked</code> (recommend to use the selection or current line color).</p><h3 id="Gist"><a href="#Gist" class="headerlink" title="Gist"></a>Gist</h3><script src="//gist.github.com/996818.js"></script><h3 id="jsFiddle"><a href="#jsFiddle" class="headerlink" title="jsFiddle"></a>jsFiddle</h3><iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/ccWP7/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe><h2 id="Pullquote"><a href="#Pullquote" class="headerlink" title="Pullquote"></a>Pullquote</h2><h3 id="Left"><a href="#Left" class="headerlink" title="Left"></a>Left</h3><blockquote class="pullquote left"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempus molestie arcu, et fringilla mauris placerat ac. Nullam luctus bibendum risus. Ut cursus sed ipsum feugiat egestas. Suspendisse elementum, velit eu consequat consequat, augue lorem dapibus libero, eget pulvinar dolor est sit amet nulla. Suspendisse a porta tortor, et posuere mi. Pellentesque ultricies, mi quis volutpat malesuada, erat felis vulputate nisl, ac congue ante tortor ut ante. Proin aliquam sem vel mauris tincidunt, eget scelerisque tortor euismod. Nulla tincidunt enim nec commodo dictum. Mauris id sapien et orci gravida luctus id ut dui. In vel vulputate odio. Duis vel turpis molestie, scelerisque enim eu, lobortis eros. Cras at ipsum gravida, sagittis ante vel, viverra tellus. Nunc mauris turpis, elementum ullamcorper nisl pretium, ultrices cursus justo. Mauris porttitor commodo eros, ac ornare orci interdum in. Cras fermentum cursus leo sed mattis. In dignissim lorem sem, sit amet elementum mauris venenatis ac.</p><h3 id="Right"><a href="#Right" class="headerlink" title="Right"></a>Right</h3><blockquote class="pullquote right"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula justo, lobortis sit amet semper vel, dignissim sit amet libero. Praesent ac tempus ligula. Maecenas at gravida odio. Etiam tristique volutpat lacus eu faucibus. Donec non tempus arcu. Phasellus adipiscing, mauris nec mollis egestas, ipsum nunc auctor velit, et rhoncus lorem ipsum at ante. Praesent et sem in velit volutpat auctor. Duis vel mauris nulla. Maecenas mattis interdum ante, quis sagittis nibh cursus et. Nulla facilisi. Morbi convallis gravida tortor, ut fermentum enim gravida et. Nunc vel dictum nisl, non ultrices libero. Proin vestibulum felis eget orci consectetur lobortis. Vestibulum augue nulla, iaculis vitae augue vehicula, dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>www.google.com</title>
+      <link href="/2013/12/24/link-post-without-title/"/>
+      <url>/2013/12/24/link-post-without-title/</url>
+      
+        <content type="html"><![CDATA[<p>This is a link post without a title. The title should be the link with or without protocol. Clicking on the link should open <a href="http://www.google.com/">Google</a> in a new tab or window.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>日本語テスト</title>
+      <link href="/2013/12/24/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%86%E3%82%B9%E3%83%88/"/>
+      <url>/2013/12/24/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%86%E3%82%B9%E3%83%88/</url>
+      
+        <content type="html"><![CDATA[<p>This is a Japanese test post.</p><p>私は昨日ついにその助力家というのの上よりするたなけれ。</p><p>最も今をお話団はちょうどこの前後なかろでくらいに困りがいるたをは帰着考えたなかって、そうにもするでうたらない。</p><p>がたを知っないはずも同時に九月をいよいよたありた。</p><p>もっと槙さんにぼんやり金少し説明にえた自分大した人私か影響にというお関係たうませないが、この次第も私か兄具合に使うて、槙さんののに当人のあなたにさぞご意味と行くて私個人が小尊敬を聴いように同時に同反抗に集っだうて、いよいよまず相当へあっうからいだ事をしでなけれ。</p><blockquote><p>それでそれでもご時日をしはずはたったいやと突き抜けるますて、その元がは行ったてという獄を尽すていけですた。</p></blockquote><p>この中道具の日その学校はあなたごろがすまなりかとネルソンさんの考えるですん、辺の事実ないというご盲従ありたですと、爺さんのためが薬缶が結果までの箸の当時してならて、多少の十月にためからそういう上からとにかくしましないと触れべきものたで、ないうですと多少お人達したのでたた。</p><p><em>From <a href="http://lipsum.sugutsukaeru.jp/index.cgi">すぐ使えるダミーテキスト - 日本語 Lorem ipsum</a></em></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>中文測試</title>
+      <link href="/2013/12/24/%E4%B8%AD%E6%96%87%E6%B8%AC%E8%A9%A6/"/>
+      <url>/2013/12/24/%E4%B8%AD%E6%96%87%E6%B8%AC%E8%A9%A6/</url>
+      
+        <content type="html"><![CDATA[<p>This is a Chinese test post.</p><p>善我王上魚、產生資西員合兒臉趣論。畫衣生這著爸毛親可時，安程幾？合學作。觀經而作建。都非子作這！法如言子你關！手師也。</p><p>以也座論頭室業放。要車時地變此親不老高小是統習直麼調未，行年香一？</p><p>就竟在，是我童示讓利分和異種百路關母信過明驗有個歷洋中前合著區亮風值新底車有正結，進快保的行戰從：弟除文辦條國備當來際年每小腳識世可的的外的廣下歌洲保輪市果底天影；全氣具些回童但倒影發狀在示，數上學大法很，如要我……月品大供這起服滿老？應學傳者國：山式排只不之然清同關；細車是！停屋常間又，資畫領生，相們制在？公別的人寫教資夠。資再我我！只臉夫藝量不路政吃息緊回力之；兒足灣電空時局我怎初安。意今一子區首者微陸現際安除發連由子由而走學體區園我車當會，經時取頭，嚴了新科同？很夫營動通打，出和導一樂，查旅他。坐是收外子發物北看蘭戰坐車身做可來。道就學務。</p><p>國新故。</p><blockquote><p>工步他始能詩的，裝進分星海演意學值例道……於財型目古香亮自和這乎？化經溫詩。只賽嚴大一主價世哥受的沒有中年即病行金拉麼河。主小路了種就小為廣不？</p></blockquote><p><em>From <a href="http://www.richyli.com/tool/loremipsum/">亂數假文產生器 - Chinese Lorem Ipsum</a></em></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam justo turpis, tincidunt ac convallis id.</title>
+      <link href="/2013/12/24/long-title/"/>
+      <url>/2013/12/24/long-title/</url>
+      
+        <content type="html"><![CDATA[<p>This post has a long title. Make sure the title displayed right.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Categories</title>
+      <link href="/2013/12/24/categories/"/>
+      <url>/2013/12/24/categories/</url>
+      
+        <content type="html"><![CDATA[<p>This post contains 3 categories. Make sure your theme can display all of the categories.</p><span id="more"></span><p>categories:</p><ul><li>Foo</li><li>Bar</li><li>Baz</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Tags</title>
+      <link href="/2013/12/24/tags/"/>
+      <url>/2013/12/24/tags/</url>
+      
+        <content type="html"><![CDATA[<p>This post contains 3 tags. Make sure your theme can display all of the tags.</p><span id="more"></span><p>tags:</p><ul><li>Foo</li><li>Bar</li><li>Baz</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Elements</title>
+      <link href="/2013/12/24/elements/"/>
+      <url>/2013/12/24/elements/</url>
+      
+        <content type="html"><![CDATA[<p>The purpose of this post is to help you make sure all of HTML elements can display properly. If you use CSS reset, don’t forget to redefine the style by yourself.</p><hr><h1 id="Heading-1"><a href="#Heading-1" class="headerlink" title="Heading 1"></a>Heading 1</h1><h2 id="Heading-2"><a href="#Heading-2" class="headerlink" title="Heading 2"></a>Heading 2</h2><h3 id="Heading-3"><a href="#Heading-3" class="headerlink" title="Heading 3"></a>Heading 3</h3><h4 id="Heading-4"><a href="#Heading-4" class="headerlink" title="Heading 4"></a>Heading 4</h4><h5 id="Heading-5"><a href="#Heading-5" class="headerlink" title="Heading 5"></a>Heading 5</h5><h6 id="Heading-6"><a href="#Heading-6" class="headerlink" title="Heading 6"></a>Heading 6</h6><hr><h2 id="Paragraph"><a href="#Paragraph" class="headerlink" title="Paragraph"></a>Paragraph</h2><p>Lorem ipsum dolor sit amet, <a href="">test link</a> consectetur adipiscing elit. <strong>Strong text</strong> pellentesque ligula commodo viverra vehicula. <em>Italic text</em> at ullamcorper enim. Morbi a euismod nibh. <u>Underline text</u> non elit nisl. <del>Deleted text</del> tristique, sem id condimentum tempus, metus lectus venenatis mauris, sit amet semper lorem felis a eros. Fusce egestas nibh at sagittis auctor. Sed ultricies ac arcu quis molestie. Donec dapibus nunc in nibh egestas, vitae volutpat sem iaculis. Curabitur sem tellus, elementum nec quam id, fermentum laoreet mi. Ut mollis ullamcorper turpis, vitae facilisis velit ultricies sit amet. Etiam laoreet dui odio, id tempus justo tincidunt id. Phasellus scelerisque nunc sed nunc ultricies accumsan.</p><p>Interdum et malesuada fames ac ante ipsum primis in faucibus. <code>Sed erat diam</code>, blandit eget felis aliquam, rhoncus varius urna. Donec tellus sapien, sodales eget ante vitae, feugiat ullamcorper urna. Praesent auctor dui vitae dapibus eleifend. Proin viverra mollis neque, ut ullamcorper elit posuere eget.</p><blockquote><p>Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.</p></blockquote><p>Maecenas ornare arcu at mi suscipit, non molestie tortor ultrices. Aenean convallis, diam et congue ultricies, erat magna tincidunt orci, pulvinar posuere mi sapien ac magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent vitae placerat mauris. Nullam laoreet ante posuere tortor blandit auctor. Sed id ligula volutpat leo consequat placerat. Mauris fermentum dolor sed augue malesuada sollicitudin. Vivamus ultrices nunc felis, quis viverra orci eleifend ut. Donec et quam id urna cursus posuere. Donec elementum scelerisque laoreet.</p><h2 id="List-Types"><a href="#List-Types" class="headerlink" title="List Types"></a>List Types</h2><h3 id="Definition-List-dl"><a href="#Definition-List-dl" class="headerlink" title="Definition List (dl)"></a>Definition List (dl)</h3><dl><dt>Definition List Title</dt><dd>This is a definition list division.</dd></dl><h3 id="Ordered-List-ol"><a href="#Ordered-List-ol" class="headerlink" title="Ordered List (ol)"></a>Ordered List (ol)</h3><ol><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ol><h3 id="Unordered-List-ul"><a href="#Unordered-List-ul" class="headerlink" title="Unordered List (ul)"></a>Unordered List (ul)</h3><ul><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ul><h3 id="Checkbox-List-ul"><a href="#Checkbox-List-ul" class="headerlink" title="Checkbox List (ul)"></a>Checkbox List (ul)</h3><ul><li><input disabled="" type="checkbox"> List Item 1 unchecked</li><li><input checked="" disabled="" type="checkbox"> List Item 2 checked</li><li><input checked="" disabled="" type="checkbox"> List Item 3 checked</li></ul><h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h2 id="Misc-Stuff-abbr-acronym-sub-sup-kbd-etc"><a href="#Misc-Stuff-abbr-acronym-sub-sup-kbd-etc" class="headerlink" title="Misc Stuff - abbr, acronym, sub, sup, kbd, etc."></a>Misc Stuff - abbr, acronym, sub, sup, kbd, etc.</h2><p>Lorem <sup>superscript</sup> dolor <sub>subscript</sub> amet, consectetuer adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. <cite>cite</cite>. Nunc iaculis suscipit dui. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. <acronym title="National Basketball Association">NBA</acronym> Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.  <abbr title="Avenue">AVE</abbr>. Use <kbd>Crtl</kbd> + <kbd>C</kbd> to stop.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
