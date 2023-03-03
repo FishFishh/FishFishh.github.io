@@ -7460,3 +7460,41 @@ ul.list-v.rightmenu li.music .nav.volume .aplayer-volume-bar .aplayer-volume {
 [color-scheme='dark'] .aplayer .aplayer-notice {
   background-color: var(--color-site-bg) !important;
 }
+/* 此处调节字体大小
+.top .title font{
+    font-size: 1em;
+}
+*/
+.top .title span {
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -khtml-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  -ms-transition: 0.5s;
+}
+.top .title:hover span:nth-child(1) {
+  margin-right: 10px;
+}
+.top .title:hover span:nth-child(2) {
+  margin-left: 10px;
+}
+.top .title:hover span {
+  color: #fff;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff, 0 0 80px #fff, 0 0 120px #fff, 0 0 160px #fff;
+}
+#l_main .post,
+#l_side .widget {
+  opacity: 0.9;
+  -webkit-opacity: 0.9;
+  -moz-opacity: 0.9;
+}
+#post.post,
+#docs.post {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.parallax-mirror {
+  filter: brightness(0.6);
+}
