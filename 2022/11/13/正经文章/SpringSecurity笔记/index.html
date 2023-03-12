@@ -1890,7 +1890,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://gcore.jsdelivr.net/gh/FishFishh/PicGoDemo/avatar/%E5%A4%B4%E5%83%8F2.png","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1678455892062),
+    lastupdate: new Date(1678599363483),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -3240,7 +3240,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：578 字</p>
+      <p>字数：580 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3296,18 +3296,43 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="post-body" itemprop="articleBody">
     <p>学习Spring Security的笔记</p>
 <span id="more"></span>
-
-<h2 id="1-注"><a href="#1-注" class="headerlink" title="-1.注"></a>-1.注</h2><p>本文是根据up主<br><a href="https://www.bilibili.com/video/BV1mm4y1X7Hc/?spm_id_from=333.337.search-card.all.click&amp;vd_source=9ced108d812918e59caec3ce1751c507" target="_blank">三更草堂</a><br>写的，内容和他记的课程笔记差不多，大同小异（x）</p>
+<h2 id="-1注"><a class="markdownIt-Anchor" href="#-1注"></a> -1.注</h2>
+<p>本文是根据up主<br />
+<a href="https://www.bilibili.com/video/BV1mm4y1X7Hc/?spm_id_from=333.337.search-card.all.click&amp;vd_source=9ced108d812918e59caec3ce1751c507" target="_blank">三更草堂</a><br />
+写的，内容和他记的课程笔记差不多，大同小异（x）</p>
 <p>他讲的比较不错，可以去看看~</p>
-<h2 id="0-简介"><a href="#0-简介" class="headerlink" title="0.简介"></a>0.简介</h2><p>​	<strong>Spring Security</strong>是Spring家族中的一个安全管理框架。相比与另外-个安全框架<strong>Shiro</strong>,它提供了更丰富的功能，社区资源也比Shiro丰富。<br>​	一般来说中大型的项目都是使用<strong>SpringSecurity</strong>来做安全框架。小项目有Shiro的比较多，因为相毗与SpringSecurity, Shiro的上手更加的简单。<br>​	一般Web应用的要进行<strong>认证</strong>和<strong>授权</strong>。<br>​		<strong>认证:验证当前访问系统的是不是本系统的用户,并且要确认具体是哪个用户</strong><br>​		<strong>授权:经过认证后判断当前用户是否有权限进行某个操作</strong><br>​	而认证和授权也是SpringSecurity作为安全框架的核心功能。</p>
-<h2 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h2><h4 id="1-1-准备"><a href="#1-1-准备" class="headerlink" title="1.1 准备"></a>1.1 准备</h4><h5 id="设置父工程，添加依赖"><a href="#设置父工程，添加依赖" class="headerlink" title="设置父工程，添加依赖"></a>设置父工程，添加依赖</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">2.7</span><span class="number">.5</span>&lt;/version&gt;</span><br><span class="line">&lt;/parent&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">		&lt;optional&gt;<span class="literal">true</span>&lt;/optional&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="创建controller"><a href="#创建controller" class="headerlink" title="创建controller"></a>创建controller</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloController</span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">hello</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-认证"><a href="#2-认证" class="headerlink" title="2.认证"></a>2.认证</h4><h5 id="2-1登陆流程"><a href="#2-1登陆流程" class="headerlink" title="2.1登陆流程"></a>2.1登陆流程</h5><p><img src="C:\Users\fish\AppData\Roaming\Typora\typora-user-images\image-20221107171732190.png" class="lazyload" data-srcset="C:\Users\fish\AppData\Roaming\Typora\typora-user-images\image-20221107171732190.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20221107171732190"></p>
-<h5 id="2-2解决思路"><a href="#2-2解决思路" class="headerlink" title="2.2解决思路"></a>2.2解决思路</h5><p>登录<br>    ①自定义登录接口<br>        调用ProviderManager的方法进行认证如果认证通过生成jwt<br>        把用户信息存入redis中<br>    ②自定义UserDetailsService<br>        在这个实现列中去查询数据库<br>校验:<br>    定义jwt认证过滤器<br>        获取token<br>        解析token获取其中的userid<br>        从redis中获取用户信息<br>        存入SecurityContextHolder</p>
-<h5 id="2-3准备工作"><a href="#2-3准备工作" class="headerlink" title="2.3准备工作"></a>2.3准备工作</h5><h6 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--redis依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--fastjson依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">1.2</span><span class="number">.33</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--jwt依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;jjwt&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">0.9</span><span class="number">.0</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
+<h2 id="0简介"><a class="markdownIt-Anchor" href="#0简介"></a> 0.简介</h2>
+<p>​	<strong>Spring Security</strong>是Spring家族中的一个安全管理框架。相比与另外-个安全框架<strong>Shiro</strong>,它提供了更丰富的功能，社区资源也比Shiro丰富。<br />
+​	一般来说中大型的项目都是使用<strong>SpringSecurity</strong>来做安全框架。小项目有Shiro的比较多，因为相毗与SpringSecurity, Shiro的上手更加的简单。<br />
+​	一般Web应用的要进行<strong>认证</strong>和<strong>授权</strong>。<br />
+​		<strong>认证:验证当前访问系统的是不是本系统的用户,并且要确认具体是哪个用户</strong><br />
+​		<strong>授权:经过认证后判断当前用户是否有权限进行某个操作</strong><br />
+​	而认证和授权也是SpringSecurity作为安全框架的核心功能。</p>
+<h2 id="1创建"><a class="markdownIt-Anchor" href="#1创建"></a> 1.创建</h2>
+<h4 id="11-准备"><a class="markdownIt-Anchor" href="#11-准备"></a> 1.1 准备</h4>
+<h5 id="设置父工程添加依赖"><a class="markdownIt-Anchor" href="#设置父工程添加依赖"></a> 设置父工程，添加依赖</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">2.7</span><span class="number">.5</span>&lt;/version&gt;</span><br><span class="line">&lt;/parent&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">		&lt;optional&gt;<span class="literal">true</span>&lt;/optional&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="创建controller"><a class="markdownIt-Anchor" href="#创建controller"></a> 创建controller</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloController</span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">hello</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2认证"><a class="markdownIt-Anchor" href="#2认证"></a> 2.认证</h4>
+<h5 id="21登陆流程"><a class="markdownIt-Anchor" href="#21登陆流程"></a> 2.1登陆流程</h5>
+<p><img src="C:%5CUsers%5Cfish%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221107171732190.png" class="lazyload" data-srcset="C:%5CUsers%5Cfish%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221107171732190.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20221107171732190" /></p>
+<h5 id="22解决思路"><a class="markdownIt-Anchor" href="#22解决思路"></a> 2.2解决思路</h5>
+<p>登录<br />
+①自定义登录接口<br />
+调用ProviderManager的方法进行认证如果认证通过生成jwt<br />
+把用户信息存入redis中<br />
+②自定义UserDetailsService<br />
+在这个实现列中去查询数据库<br />
+校验:<br />
+定义jwt认证过滤器<br />
+获取token<br />
+解析token获取其中的userid<br />
+从redis中获取用户信息<br />
+存入SecurityContextHolder</p>
+<h5 id="23准备工作"><a class="markdownIt-Anchor" href="#23准备工作"></a> 2.3准备工作</h5>
+<h6 id="添加依赖"><a class="markdownIt-Anchor" href="#添加依赖"></a> 添加依赖</h6>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--redis依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--fastjson依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">1.2</span><span class="number">.33</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--jwt依赖--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;jjwt&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">0.9</span><span class="number">.0</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
   </div>
   
@@ -3365,7 +3390,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：578 字</p>
+      <p>字数：580 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3511,7 +3536,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B3%A8"><span class="toc-text">-1.注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E7%AE%80%E4%BB%8B"><span class="toc-text">0.简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA"><span class="toc-text">1.创建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%87%86%E5%A4%87"><span class="toc-text">1.1 准备</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%88%B6%E5%B7%A5%E7%A8%8B%EF%BC%8C%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="toc-text">设置父工程，添加依赖</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAcontroller"><span class="toc-text">创建controller</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%A4%E8%AF%81"><span class="toc-text">2.认证</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B"><span class="toc-text">2.1登陆流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="toc-text">2.2解决思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">2.3准备工作</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#-1%E6%B3%A8"><span class="toc-text"> -1.注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0%E7%AE%80%E4%BB%8B"><span class="toc-text"> 0.简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E5%88%9B%E5%BB%BA"><span class="toc-text"> 1.创建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E5%87%86%E5%A4%87"><span class="toc-text"> 1.1 准备</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%88%B6%E5%B7%A5%E7%A8%8B%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="toc-text"> 设置父工程，添加依赖</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAcontroller"><span class="toc-text"> 创建controller</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E8%AE%A4%E8%AF%81"><span class="toc-text"> 2.认证</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#21%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B"><span class="toc-text"> 2.1登陆流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#22%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="toc-text"> 2.2解决思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#23%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text"> 2.3准备工作</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -3750,6 +3775,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 <!-- required -->
+
+    
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js"></script>
+
 
 
 <!-- internal -->

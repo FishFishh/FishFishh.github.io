@@ -1890,7 +1890,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://gcore.jsdelivr.net/gh/FishFishh/PicGoDemo/avatar/%E5%A4%B4%E5%83%8F2.png","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1678455892062),
+    lastupdate: new Date(1678599363483),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -3240,7 +3240,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：217 字</p>
+      <p>字数：221 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3296,21 +3296,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="post-body" itemprop="articleBody">
     <p>集合の总结_(:з」∠)</p>
 <span id="more"></span>
-<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><pre><code>1.底层由数组实现
+<h2 id="arraylist"><a class="markdownIt-Anchor" href="#arraylist"></a> ArrayList</h2>
+<pre><code>1.底层由数组实现
 2.元素有序且可以重复
 3.可以动态增长，以满足应用程序的需求
 4.元素值可以为null
 </code></pre>
-<h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><pre><code>1.元素无序并且不可以重复
+<h2 id="hashset"><a class="markdownIt-Anchor" href="#hashset"></a> HashSet</h2>
+<pre><code>1.元素无序并且不可以重复
 2.只允许一个null元素
 </code></pre>
-<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><pre><code>1.键不能重复
+<h2 id="hashmap"><a class="markdownIt-Anchor" href="#hashmap"></a> HashMap</h2>
+<pre><code>1.键不能重复
 2.允许使用null值和null键
 3.HashMap中的Entry对象是无序排列的
 </code></pre>
-<h2 id="Iterator（迭代器"><a href="#Iterator（迭代器" class="headerlink" title="Iterator（迭代器)"></a>Iterator（迭代器)</h2><h3 id="Iterator接口以统一的方式对各种集合元素进行遍历"><a href="#Iterator接口以统一的方式对各种集合元素进行遍历" class="headerlink" title="Iterator接口以统一的方式对各种集合元素进行遍历"></a>Iterator接口以统一的方式对各种集合元素进行遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; it=set.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">    System.out.print(it.next()+&quot; &quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="HashCode"><a href="#HashCode" class="headerlink" title="HashCode()"></a>HashCode()</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int hashCode() &#123;</span><br><span class="line">    final int prime = 31;</span><br><span class="line">    int result = 1;</span><br><span class="line">    result = prime * result + age;</span><br><span class="line">    result = prime * result + ((name == null) ? 0 : name.hashCode());</span><br><span class="line">    result = prime * result + ((species = = null) ? 0 : species.hashCode());</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj) &#123;</span><br><span class="line">    if (this == obj)</span><br><span class="line">        return true;</span><br><span class="line">    if(obj.getClass()==Cat.class)&#123;</span><br><span class="line">        Cat cat=(Cat)obj;</span><br><span class="line">    return cat.getName().equals(name)&amp;&amp;(cat.getAge()==age)&amp;&amp;cat.getSpecies().equals(species);</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="iterator迭代器"><a class="markdownIt-Anchor" href="#iterator迭代器"></a> Iterator（迭代器)</h2>
+<h3 id="iterator接口以统一的方式对各种集合元素进行遍历"><a class="markdownIt-Anchor" href="#iterator接口以统一的方式对各种集合元素进行遍历"></a> Iterator接口以统一的方式对各种集合元素进行遍历</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; it=set.iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">    System.out.print(it.next()+&quot; &quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="hashcode"><a class="markdownIt-Anchor" href="#hashcode"></a> HashCode()</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int hashCode() &#123;</span><br><span class="line">    final int prime = 31;</span><br><span class="line">    int result = 1;</span><br><span class="line">    result = prime * result + age;</span><br><span class="line">    result = prime * result + ((name == null) ? 0 : name.hashCode());</span><br><span class="line">    result = prime * result + ((species = = null) ? 0 : species.hashCode());</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="equals"><a class="markdownIt-Anchor" href="#equals"></a> equals()</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj) &#123;</span><br><span class="line">    if (this == obj)</span><br><span class="line">        return true;</span><br><span class="line">    if(obj.getClass()==Cat.class)&#123;</span><br><span class="line">        Cat cat=(Cat)obj;</span><br><span class="line">    return cat.getName().equals(name)&amp;&amp;(cat.getAge()==age)&amp;&amp;cat.getSpecies().equals(species);</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <img src="https://img-blog.csdnimg.cn/0577d2ca7e8544c4bf097d9b0e508ef7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6bG85q-T5bG_5b6h,size_20,color_FFFFFF,t_70,g_se,x_16" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/0577d2ca7e8544c4bf097d9b0e508ef7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6bG85q-T5bG_5b6h,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
   </div>
   
@@ -3368,7 +3375,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：217 字</p>
+      <p>字数：221 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3450,9 +3457,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>helloworld</p>
           <p class='content'>一些操作的代码
 
-
-This is my first post.This is write by Hexo!
-Fish的第一个博客下面是hexo一些操作操作，留着留着创建一个标签页,添加type...</p>
+This is my first post.
+This is write by Hexo!
+ Fish的第一个博客
+ 下面是hexo一些操作操作，留着留着
+创建一个标签页,添加...</p>
         </a>
       
       
@@ -3460,8 +3469,11 @@ Fish的第一个博客下面是hexo一些操作操作，留着留着创建一个
           <p class='title'>HashMap<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>HashMap相关
 
-
-HashMapMapMap中的数据是以键值对( key-value )的形式存储的。key-value以Entry类型的对象实例存在。可以通过key值快速地查找value...</p>
+ HashMap
+ Map
+Map中的数据是以键值对( key-value )的形式存储的。
+key-value以Entry类型的对象实例存在。
+可以通过key值快速地查找...</p>
         </a>
       
     </div>
@@ -3519,7 +3531,7 @@ HashMapMapMap中的数据是以键值对( key-value )的形式存储的。key-va
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList"><span class="toc-text">ArrayList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashSet"><span class="toc-text">HashSet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap"><span class="toc-text">HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Iterator%EF%BC%88%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">Iterator（迭代器)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Iterator%E6%8E%A5%E5%8F%A3%E4%BB%A5%E7%BB%9F%E4%B8%80%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AF%B9%E5%90%84%E7%A7%8D%E9%9B%86%E5%90%88%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">Iterator接口以统一的方式对各种集合元素进行遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashCode"><span class="toc-text">HashCode()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#equals"><span class="toc-text">equals()</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#arraylist"><span class="toc-text"> ArrayList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hashset"><span class="toc-text"> HashSet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hashmap"><span class="toc-text"> HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iterator%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text"> Iterator（迭代器)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#iterator%E6%8E%A5%E5%8F%A3%E4%BB%A5%E7%BB%9F%E4%B8%80%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AF%B9%E5%90%84%E7%A7%8D%E9%9B%86%E5%90%88%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text"> Iterator接口以统一的方式对各种集合元素进行遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hashcode"><span class="toc-text"> HashCode()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#equals"><span class="toc-text"> equals()</span></a></li></ol>
     </div>
   </section>
 
@@ -3758,6 +3770,10 @@ HashMapMapMap中的数据是以键值对( key-value )的形式存储的。key-va
 </script>
 
 <!-- required -->
+
+    
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js"></script>
+
 
 
 <!-- internal -->

@@ -1890,7 +1890,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://gcore.jsdelivr.net/gh/FishFishh/PicGoDemo/avatar/%E5%A4%B4%E5%83%8F2.png","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1678455892062),
+    lastupdate: new Date(1678599363483),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -3240,7 +3240,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：423 字</p>
+      <p>字数：426 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3296,25 +3296,35 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="post-body" itemprop="articleBody">
     <p>HashMap相关</p>
 <span id="more"></span>
-
-<h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><p>Map中的数据是以键值对( key-value )的形式存储的。<br>key-value以Entry类型的对象实例存在。<br>可以通过key值快速地查找value。<br>一个映射不能包含重复的键。也就是说key的值必须为1，一个value可以对应多个key的值。</p>
-<h1 id="HashMap-1"><a href="#HashMap-1" class="headerlink" title="HashMap"></a>HashMap</h1><ol>
-<li><pre><code>基于哈希表的Map接口的实现。是Map的实现类。
+<h1 id="hashmap"><a class="markdownIt-Anchor" href="#hashmap"></a> HashMap</h1>
+<h1 id="map"><a class="markdownIt-Anchor" href="#map"></a> Map</h1>
+<p>Map中的数据是以键值对( key-value )的形式存储的。<br />
+key-value以Entry类型的对象实例存在。<br />
+可以通过key值快速地查找value。<br />
+一个映射不能包含重复的键。也就是说key的值必须为1，一个value可以对应多个key的值。</p>
+<h1 id="hashmap-2"><a class="markdownIt-Anchor" href="#hashmap-2"></a> HashMap</h1>
+<ol>
+<li>
+<pre><code>基于哈希表的Map接口的实现。是Map的实现类。
 </code></pre>
 </li>
-<li><pre><code>允许使用null值和null键。
+<li>
+<pre><code>允许使用null值和null键。
 </code></pre>
 </li>
-<li><pre><code>key值不允许重复。
+<li>
+<pre><code>key值不允许重复。
 </code></pre>
 </li>
-<li><pre><code>HashMap中的Entry对象是无序排列的。
+<li>
+<pre><code>HashMap中的Entry对象是无序排列的。 
 </code></pre>
 </li>
 </ol>
-<h2 id="例题1：使用HashMap编写一个字典"><a href="#例题1：使用HashMap编写一个字典" class="headerlink" title="例题1：使用HashMap编写一个字典"></a>例题1：使用HashMap编写一个字典</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class Map01例题 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map&lt;String,String&gt; animal=new HashMap&lt;String,String&gt;();</span><br><span class="line">        System.out.println(&quot;请输入三组单词对应的注释，并存放到HashMap中&quot;);</span><br><span class="line">        Scanner console = new Scanner(System.in);</span><br><span class="line">        //添加数据</span><br><span class="line">        int i = 0;</span><br><span class="line">        while(i&lt;3)&#123;</span><br><span class="line">            System.out.println(&quot;请输入key值：&quot;);</span><br><span class="line">            String key = console.next();</span><br><span class="line">            System.out.println(&quot;请输入value值：&quot;);</span><br><span class="line">            String value = console.next();</span><br><span class="line">            animal.put(key,value);</span><br><span class="line">             i++;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;=======&quot;);</span><br><span class="line">    //打印输出value的值（直接使用迭代器）</span><br><span class="line">    System.out.println(&quot;使用迭代器输出所有value的值：&quot;);</span><br><span class="line">    Iterator&lt;String&gt; it= animal.values().iterator();</span><br><span class="line">    while(it.hasNext())&#123;</span><br><span class="line">        System.out.print(it.next()+&quot; &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.println(&quot;=======&quot;);</span><br><span class="line">    System.out.println(&quot;通过entrySet方法得到Key-Value：&quot;);</span><br><span class="line">    Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet=animal.entrySet();</span><br><span class="line">    for(Map.Entry&lt;String,String&gt; entry:entrySet)&#123;</span><br><span class="line">        System.out.print(entry.getKey()+&quot;-&quot;);</span><br><span class="line">        System.out.println(entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="例题2：对字典进行查询"><a href="#例题2：对字典进行查询" class="headerlink" title="例题2：对字典进行查询"></a>例题2：对字典进行查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;请输入要查找的（key）&quot;);</span><br><span class="line">//使用keySet方法</span><br><span class="line">String strSearch=console.next();</span><br><span class="line"></span><br><span class="line">//1.取得keySet</span><br><span class="line">Set&lt;String&gt; keySet=animal.keySet();</span><br><span class="line"></span><br><span class="line">//2.遍历KeySet</span><br><span class="line">for(String key:keySet)&#123;</span><br><span class="line">    if(strSearch.equals(key))&#123;</span><br><span class="line">        System.out.println(&quot;找到了!键值对的值为:&quot;+key+&quot;-&quot;+animal.get(key));</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="例题1使用hashmap编写一个字典"><a class="markdownIt-Anchor" href="#例题1使用hashmap编写一个字典"></a> 例题1：使用HashMap编写一个字典</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class Map01例题 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map&lt;String,String&gt; animal=new HashMap&lt;String,String&gt;();</span><br><span class="line">        System.out.println(&quot;请输入三组单词对应的注释，并存放到HashMap中&quot;);</span><br><span class="line">        Scanner console = new Scanner(System.in);</span><br><span class="line">        //添加数据</span><br><span class="line">        int i = 0;</span><br><span class="line">        while(i&lt;3)&#123;</span><br><span class="line">            System.out.println(&quot;请输入key值：&quot;);</span><br><span class="line">            String key = console.next();</span><br><span class="line">            System.out.println(&quot;请输入value值：&quot;);</span><br><span class="line">            String value = console.next();</span><br><span class="line">            animal.put(key,value);</span><br><span class="line">             i++;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;=======&quot;);</span><br><span class="line">    //打印输出value的值（直接使用迭代器）</span><br><span class="line">    System.out.println(&quot;使用迭代器输出所有value的值：&quot;);</span><br><span class="line">    Iterator&lt;String&gt; it= animal.values().iterator();</span><br><span class="line">    while(it.hasNext())&#123;</span><br><span class="line">        System.out.print(it.next()+&quot; &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.println(&quot;=======&quot;);</span><br><span class="line">    System.out.println(&quot;通过entrySet方法得到Key-Value：&quot;);</span><br><span class="line">    Set&lt;Map.Entry&lt;String,String&gt;&gt; entrySet=animal.entrySet();</span><br><span class="line">    for(Map.Entry&lt;String,String&gt; entry:entrySet)&#123;</span><br><span class="line">        System.out.print(entry.getKey()+&quot;-&quot;);</span><br><span class="line">        System.out.println(entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="例题2对字典进行查询"><a class="markdownIt-Anchor" href="#例题2对字典进行查询"></a> 例题2：对字典进行查询</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;请输入要查找的（key）&quot;);</span><br><span class="line">//使用keySet方法</span><br><span class="line">String strSearch=console.next();</span><br><span class="line"></span><br><span class="line">//1.取得keySet</span><br><span class="line">Set&lt;String&gt; keySet=animal.keySet();</span><br><span class="line"></span><br><span class="line">//2.遍历KeySet</span><br><span class="line">for(String key:keySet)&#123;</span><br><span class="line">    if(strSearch.equals(key))&#123;</span><br><span class="line">        System.out.println(&quot;找到了!键值对的值为:&quot;+key+&quot;-&quot;+animal.get(key));</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
   </div>
   
   
@@ -3371,7 +3381,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：423 字</p>
+      <p>字数：426 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3453,12 +3463,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>集合の总结_(:з」∠)</p>
           <p class='content'>集合の总结_(:з」∠)
 
-ArrayList1.底层由数组实现
+ ArrayList
+1.底层由数组实现
 2.元素有序且可以重复
 3.可以动态增长，以满足应用程序的需求
 4.元素值可以为null
 
-HashSet1.元素无序并且不可以...</p>
+ HashSet
+1.元素无序并...</p>
         </a>
       
       
@@ -3522,7 +3534,7 @@ HashSet1.元素无序并且不可以...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%981%EF%BC%9A%E4%BD%BF%E7%94%A8HashMap%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AD%97%E5%85%B8"><span class="toc-text">例题1：使用HashMap编写一个字典</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%982%EF%BC%9A%E5%AF%B9%E5%AD%97%E5%85%B8%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2"><span class="toc-text">例题2：对字典进行查询</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%981%E4%BD%BF%E7%94%A8hashmap%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%AD%97%E5%85%B8"><span class="toc-text"> 例题1：使用HashMap编写一个字典</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%982%E5%AF%B9%E5%AD%97%E5%85%B8%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2"><span class="toc-text"> 例题2：对字典进行查询</span></a></li></ol>
     </div>
   </section>
 
@@ -3761,6 +3773,10 @@ HashSet1.元素无序并且不可以...</p>
 </script>
 
 <!-- required -->
+
+    
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js"></script>
+
 
 
 <!-- internal -->

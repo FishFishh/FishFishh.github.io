@@ -1890,7 +1890,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://gcore.jsdelivr.net/gh/FishFishh/PicGoDemo/avatar/%E5%A4%B4%E5%83%8F2.png","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1678455892062),
+    lastupdate: new Date(1678599363483),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -3299,20 +3299,25 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <pre><code>基于hexo和butterfly主题的天气组件
 </code></pre>
 <p>今天来整天气组件，受<a helf="https://blog.csdn.net/weixin_50915462/article/details/120050294?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165208729916782350990369%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165208729916782350990369&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-2-120050294-null-null.142^v9^control,157^v4^new_style&utm_term=butterfly%E5%B0%8F%E9%83%A8%E4%BB%B6&spm=1018.2226.3001.4187">孙老师</a>启发然后会弄了。</p>
-<h2 id="1-申请天气组件账号"><a href="#1-申请天气组件账号" class="headerlink" title="1.申请天气组件账号"></a>1.申请天气组件账号</h2><p>推荐<span style="color:skyblue">和风天气</span>，<a href="https://id.qweather.com/#/register?redirect=https%3A%2F%2Fconsole.qweather.com" target="_blank">点此注册</a></p>
-<h2 id="2-创建组件"><a href="#2-创建组件" class="headerlink" title="2.创建组件"></a>2.创建组件</h2><p>创建一个自己喜欢的组件外观，<a target="_blank" rel="noopener" href="https://widget.qweather.com/create-simple">创建插件</a>然后点击生成代码，一会用</p>
-<h2 id="3-添加配置文件"><a href="#3-添加配置文件" class="headerlink" title="3.添加配置文件"></a>3.添加配置文件</h2><p>在blog\themes\butterfly\layout\includes\headers目录下的nav.pug文件中添加以下内容</p>
+<h2 id="1申请天气组件账号"><a class="markdownIt-Anchor" href="#1申请天气组件账号"></a> 1.申请天气组件账号</h2>
+<p>推荐<span style="color:skyblue">和风天气</span>，<a href="https://id.qweather.com/#/register?redirect=https%3A%2F%2Fconsole.qweather.com" target="_blank">点此注册</a></p>
+<h2 id="2创建组件"><a class="markdownIt-Anchor" href="#2创建组件"></a> 2.创建组件</h2>
+<p>创建一个自己喜欢的组件外观，<a target="_blank" rel="noopener" href="https://widget.qweather.com/create-simple">创建插件</a>然后点击生成代码，一会用</p>
+<h2 id="3添加配置文件"><a class="markdownIt-Anchor" href="#3添加配置文件"></a> 3.添加配置文件</h2>
+<p>在blog\themes\butterfly\layout\includes\headers目录下的nav.pug文件中添加以下内容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <p>没改过的话应该是这样子的,插入在第四行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">nav#nav</span><br><span class="line">  span#blog_name</span><br><span class="line">    a#site-name(href=url_for(&#x27;/&#x27;)) #[=config.title]</span><br><span class="line">    &lt;div id=&quot;he-plugin-simple&quot;&gt;&lt;/div&gt;</span><br><span class="line">  #menus</span><br><span class="line">    if (theme.algolia_search.enable || theme.local_search.enable)</span><br><span class="line">      #search-button</span><br><span class="line">        a.site-page.social-icon.search</span><br><span class="line">          i.fas.fa-search.fa-fw</span><br><span class="line">          span=&#x27; &#x27;+_p(&#x27;search.title&#x27;)</span><br><span class="line">    !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br><span class="line"></span><br><span class="line">    #toggle-menu</span><br><span class="line">      a.site-page</span><br><span class="line">        i.fas.fa-bars.fa-fw</span><br></pre></td></tr></table></figure>
-<h2 id="4-添加weather-js"><a href="#4-添加weather-js" class="headerlink" title="4.添加weather.js"></a>4.添加weather.js</h2><p>将刚才生成的代码复制到这个文件里，在key的字段前面加两个位置的字段,具体数值后续调试</p>
+<h2 id="4添加weatherjs"><a class="markdownIt-Anchor" href="#4添加weatherjs"></a> 4.添加weather.js</h2>
+<p>将刚才生成的代码复制到这个文件里，在key的字段前面加两个位置的字段,具体数值后续调试</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;left&quot;: &quot;100&quot;,</span><br><span class="line">&quot;top&quot;: &quot;8&quot;,</span><br></pre></td></tr></table></figure>
-
 <pre><code>记得把开头的&lt;div&gt;语句和开头结尾的&lt;script&gt;都删掉
 </code></pre>
-<h2 id="5-主题配置文件里引入"><a href="#5-主题配置文件里引入" class="headerlink" title="5.主题配置文件里引入"></a>5.主题配置文件里引入</h2><p>在配置文件_config.butterfly的inject属性中bottom:里引入代码</p>
+<h2 id="5主题配置文件里引入"><a class="markdownIt-Anchor" href="#5主题配置文件里引入"></a> 5.主题配置文件里引入</h2>
+<p>在配置文件_config.butterfly的inject属性中bottom:里引入代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- &lt;script src=&quot;https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0&quot;&gt;&lt;/script&gt;</span><br><span class="line">- &lt;script async src=&quot;/js/weather.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="6-之后调试一下就能使用了，调试left和top属性"><a href="#6-之后调试一下就能使用了，调试left和top属性" class="headerlink" title="6.之后调试一下就能使用了，调试left和top属性"></a>6.之后调试一下就能使用了，调试left和top属性</h2>
+<h2 id="6之后调试一下就能使用了调试left和top属性"><a class="markdownIt-Anchor" href="#6之后调试一下就能使用了调试left和top属性"></a> 6.之后调试一下就能使用了，调试left和top属性</h2>
+
   </div>
   
   
@@ -3459,7 +3464,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <p class='title'>母亲节<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>母亲节快乐！
 
-小时候最想做的事就是快快长大 而大长后最想做的事情是希望妈妈慢点变老爱妈妈这件事 不是一年一次 而是每分每秒希望妈妈健康快乐幸福也祝天下所有的妈妈都身体健康 平安幸福 开开心心</p>
+ 小时候最想做的事就是快快长大 而大长后最想做的事情是希望妈妈慢点变老
+ 爱妈妈这件事 不是一年一次 而是每分每秒
+ 希望妈妈健康快乐幸福
+ 也祝天下所有的妈妈都身体健康 平安幸...</p>
         </a>
       
     </div>
@@ -3517,7 +3525,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%B3%E8%AF%B7%E5%A4%A9%E6%B0%94%E7%BB%84%E4%BB%B6%E8%B4%A6%E5%8F%B7"><span class="toc-text">1.申请天气组件账号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6"><span class="toc-text">2.创建组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">3.添加配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B7%BB%E5%8A%A0weather-js"><span class="toc-text">4.添加weather.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8C%E5%BC%95%E5%85%A5"><span class="toc-text">5.主题配置文件里引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%B9%8B%E5%90%8E%E8%B0%83%E8%AF%95%E4%B8%80%E4%B8%8B%E5%B0%B1%E8%83%BD%E4%BD%BF%E7%94%A8%E4%BA%86%EF%BC%8C%E8%B0%83%E8%AF%95left%E5%92%8Ctop%E5%B1%9E%E6%80%A7"><span class="toc-text">6.之后调试一下就能使用了，调试left和top属性</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E7%94%B3%E8%AF%B7%E5%A4%A9%E6%B0%94%E7%BB%84%E4%BB%B6%E8%B4%A6%E5%8F%B7"><span class="toc-text"> 1.申请天气组件账号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6"><span class="toc-text"> 2.创建组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text"> 3.添加配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E6%B7%BB%E5%8A%A0weatherjs"><span class="toc-text"> 4.添加weather.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8C%E5%BC%95%E5%85%A5"><span class="toc-text"> 5.主题配置文件里引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E4%B9%8B%E5%90%8E%E8%B0%83%E8%AF%95%E4%B8%80%E4%B8%8B%E5%B0%B1%E8%83%BD%E4%BD%BF%E7%94%A8%E4%BA%86%E8%B0%83%E8%AF%95left%E5%92%8Ctop%E5%B1%9E%E6%80%A7"><span class="toc-text"> 6.之后调试一下就能使用了，调试left和top属性</span></a></li></ol>
     </div>
   </section>
 
@@ -3756,6 +3764,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 <!-- required -->
+
+    
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js"></script>
+
 
 
 <!-- internal -->
